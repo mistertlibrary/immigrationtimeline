@@ -17,12 +17,17 @@
             background: linear-gradient(to bottom right, #f5f5f4, #fef3c7, #f5f5f4);
             min-height: 100vh;
             line-height: 1.6;
+            scroll-behavior: smooth;
         }
         
         .deportation-timeline-container * {
             all: unset;
             display: revert;
             box-sizing: border-box;
+        }
+        
+        .deportation-timeline-container html {
+            scroll-behavior: smooth;
         }
         
         .deportation-timeline-container h1,
@@ -81,6 +86,37 @@
             color: #1d4ed8;
         }
         
+        /* I Can Statement */
+        .deportation-timeline-container .i-can-statement {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            animation: dt-scaleIn 0.5s ease-out;
+        }
+        
+        .deportation-timeline-container .i-can-content h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #e0e7ff;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .deportation-timeline-container .i-can-content p {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            color: white;
+            font-weight: 400;
+        }
+        
+        .deportation-timeline-container .i-can-content strong {
+            font-weight: 700;
+            color: #fef08a;
+        }
+        
         /* QFT Instructions */
         .deportation-timeline-container .qft-opener {
             background: #f0f9ff;
@@ -88,12 +124,19 @@
             border-radius: 0.75rem;
             padding: 2rem;
             margin-bottom: 2rem;
+            animation: dt-scaleIn 0.5s ease-out;
         }
         
         .deportation-timeline-container .qft-opener h2 {
             font-size: 1.75rem;
             color: #0c4a6e;
             margin-bottom: 1rem;
+        }
+        
+        .deportation-timeline-container .qft-opener > p {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            color: #0c4a6e;
         }
         
         .deportation-timeline-container .qfocus-statement {
@@ -138,13 +181,6 @@
             line-height: 1.5;
         }
         
-        .deportation-timeline-container .qft-step .time-note {
-            font-style: italic;
-            color: #0369a1;
-            font-size: 0.875rem;
-            margin-top: 0.5rem;
-        }
-        
         /* Question Tracker */
         .deportation-timeline-container .question-tracker {
             background: #f0fdf4;
@@ -152,6 +188,7 @@
             border-radius: 0.75rem;
             padding: 1.5rem;
             margin-bottom: 2rem;
+            animation: dt-slideInUp 0.6s ease-out;
         }
         
         .deportation-timeline-container .question-tracker h3 {
@@ -216,6 +253,7 @@
             padding: 1.5rem;
             margin-bottom: 2rem;
             border-radius: 0 0.5rem 0.5rem 0;
+            animation: dt-slideInUp 0.5s ease-out;
         }
         
         .deportation-timeline-container .timeline-instructions h2 {
@@ -249,6 +287,10 @@
             color: #92400e;
         }
         
+        .deportation-timeline-container .timeline-instructions em {
+            font-style: italic;
+        }
+        
         /* Filter Buttons */
         .deportation-timeline-container .filters {
             margin-bottom: 2rem;
@@ -263,14 +305,17 @@
             font-size: 0.875rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border: 1px solid #d6d3d1;
             background: white;
             color: #44403c;
+            transform: scale(1);
         }
         
         .deportation-timeline-container .filter-btn:hover {
             background: #fef3c7;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
         
         .deportation-timeline-container .filter-btn.active {
@@ -278,6 +323,10 @@
             color: white;
             border-color: #92400e;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .deportation-timeline-container .filter-btn:active {
+            transform: translateY(0);
         }
         
         /* Section */
@@ -293,6 +342,7 @@
             margin-bottom: 2rem;
             padding-bottom: 1.5rem;
             border-bottom: 2px solid #d97706;
+            animation: dt-fadeIn 0.5s ease-out;
         }
         
         .deportation-timeline-container .section-header h2 {
@@ -347,6 +397,13 @@
             background: #d97706;
             border: 2px solid #fffbeb;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .deportation-timeline-container .entry:has(.entry-details.visible)::after {
+            background: #f59e0b;
+            box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.2);
+            transform: scale(1.3);
         }
         
         .deportation-timeline-container .entry-card {
@@ -355,10 +412,25 @@
             padding: 1.25rem;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             transition: box-shadow 0.2s;
+            position: relative;
+            animation: dt-slideInLeft 0.4s ease-out;
         }
         
         .deportation-timeline-container .entry-card:hover {
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .deportation-timeline-container .entry-card:hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -6px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #f59e0b;
+            animation: dt-pulse 1.5s infinite;
+            pointer-events: none;
         }
         
         .deportation-timeline-container .entry-header {
@@ -388,11 +460,12 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
             font-weight: 600;
-            transition: color 0.2s;
+            transition: all 0.2s ease;
         }
         
         .deportation-timeline-container .toggle-btn:hover {
             color: #1c1917;
+            transform: scale(1.05);
         }
         
         .deportation-timeline-container .toggle-icon {
@@ -409,21 +482,12 @@
         .deportation-timeline-container .entry-details {
             display: none;
             animation: dt-fadeIn 0.3s ease-out;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
         }
         
         .deportation-timeline-container .entry-details.visible {
             display: block;
-        }
-        
-        @keyframes dt-fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
         
         .deportation-timeline-container .annotation {
@@ -432,6 +496,7 @@
             padding: 0.75rem;
             border-radius: 0 0.25rem 0.25rem 0;
             margin-bottom: 0.75rem;
+            animation: dt-slideInUp 0.4s ease-out;
         }
         
         .deportation-timeline-container .annotation p {
@@ -447,6 +512,7 @@
             padding: 0.75rem;
             border-radius: 0 0.25rem 0.25rem 0;
             margin-bottom: 0.75rem;
+            animation: dt-slideInUp 0.4s ease-out;
         }
         
         .deportation-timeline-container .inquiry-label {
@@ -465,6 +531,7 @@
             margin-top: 0.75rem;
             padding-top: 0.75rem;
             border-top: 1px solid #e7e5e4;
+            animation: dt-slideInUp 0.4s ease-out;
         }
         
         .deportation-timeline-container .sources-header {
@@ -501,11 +568,12 @@
             font-size: 0.875rem;
             color: #1e3a8a;
             text-decoration: none;
-            transition: color 0.2s;
+            transition: all 0.2s ease;
         }
         
         .deportation-timeline-container .source-link:hover {
             color: #1d4ed8;
+            transform: translateX(4px);
         }
         
         .deportation-timeline-container .source-link:hover .source-title {
@@ -572,6 +640,10 @@
             color: #6b21a8;
         }
         
+        .deportation-timeline-container .prompt em {
+            font-style: italic;
+        }
+        
         /* Footer */
         .deportation-timeline-container footer {
             margin-top: 4rem;
@@ -591,6 +663,69 @@
             margin-top: 1rem;
         }
         
+        .deportation-timeline-container footer a {
+            color: #78716c;
+            text-decoration: underline;
+        }
+        
+        .deportation-timeline-container footer strong {
+            font-weight: 600;
+        }
+        
+        /* Animations */
+        @keyframes dt-fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes dt-slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes dt-slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes dt-scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes dt-pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
         /* Responsive */
         @media (max-width: 640px) {
             .deportation-timeline-container .dt-container {
@@ -607,6 +742,22 @@
             
             .deportation-timeline-container .qft-opener h2 {
                 font-size: 1.5rem;
+            }
+            
+            .deportation-timeline-container .i-can-statement {
+                padding: 1.25rem;
+            }
+            
+            .deportation-timeline-container .i-can-content p {
+                font-size: 1rem;
+            }
+            
+            .deportation-timeline-container .qfocus-statement {
+                font-size: 1rem;
+            }
+            
+            .deportation-timeline-container .entry {
+                padding-left: 1.5rem;
             }
         }
         
@@ -635,9 +786,21 @@
             </div>
         </header>
 
+        <!-- I Can Statement -->
+        <div class="i-can-statement">
+            <div class="i-can-content">
+                <h3>Learning Goal</h3>
+                <p><strong>I can</strong> explain how U.S. immigration policy both limits and allows immigration through things like border enforcement, visas, and refugee programs, and use these facts to support my own opinion about what should change.</p>
+            </div>
+        </div>
+
         <!-- QFT Opener -->
         <div class="qft-opener">
             <h2>Part 1: Generate Your Questions</h2>
+            
+            <p>
+                U.S. immigration policy is a system with two sides: it creates pathways for people to enter legally (like visas, refugee programs, and citizenship) while also enforcing limits through deportation, border control, and exclusion. To understand this system, you'll start by generating your own questions about one aspect of this history.
+            </p>
             
             <div class="qfocus-statement">
                 <strong>Question Focus:</strong><br>
@@ -646,7 +809,7 @@
             
             <div class="qft-steps">
                 <div class="qft-step">
-                    <h3>Step 1: Produce Questions (15 minutes)</h3>
+                    <h3>Step 1: Produce Questions</h3>
                     <p>In your small group (3-4 students), follow these rules:</p>
                     <ul>
                         <li>Ask as many questions as you can about the Question Focus</li>
@@ -654,11 +817,10 @@
                         <li>Write down every question exactly as it is stated</li>
                         <li>Change any statements into questions</li>
                     </ul>
-                    <p class="time-note">Aim for at least 10-15 questions</p>
                 </div>
                 
                 <div class="qft-step">
-                    <h3>Step 2: Improve Your Questions (10 minutes)</h3>
+                    <h3>Step 2: Improve Your Questions</h3>
                     <ul>
                         <li>Mark each question as <strong>closed-ended (C)</strong> or <strong>open-ended (O)</strong></li>
                         <li>Discuss: What are the advantages and disadvantages of each type?</li>
@@ -668,7 +830,7 @@
                 </div>
                 
                 <div class="qft-step">
-                    <h3>Step 3: Prioritize (10 minutes)</h3>
+                    <h3>Step 3: Prioritize</h3>
                     <ul>
                         <li>Review all your questions</li>
                         <li>Select your <strong>top 3 questions</strong> your group most wants to explore</li>
@@ -681,7 +843,7 @@
 
         <!-- Question Tracker -->
         <div class="question-tracker">
-            <h3>📋 Our Group's Priority Questions</h3>
+            <h3>Our Group's Priority Questions</h3>
             <div class="question-list">
                 <div class="question-item">
                     <label>Priority Question #1:</label>
@@ -697,7 +859,7 @@
                 </div>
             </div>
             <div class="notes-area">
-                <label>📝 Notes & Evidence from the Timeline:</label>
+                <label>Notes & Evidence from the Timeline:</label>
                 <textarea placeholder="As you explore the timeline, record important findings, surprising information, and evidence related to your questions..."></textarea>
             </div>
         </div>
@@ -705,15 +867,15 @@
         <!-- Timeline Instructions -->
         <div class="timeline-instructions">
             <h2>Part 2: Investigate Using the Timeline</h2>
-            <p><strong>Your task:</strong> Use this interactive timeline to find evidence that helps you answer your top 3 questions.</p>
-            <p><strong>As you explore:</strong></p>
+            <p><strong>Your task:</strong> Use this interactive timeline to find evidence that helps you answer your top 3 questions. As you explore, pay attention to how different policies both <em>limited</em> immigration (through exclusion, deportation, and enforcement) and <em>allowed</em> immigration (through legal pathways, programs, and protections).</p>
+            <p><strong>Investigation steps:</strong></p>
             <ul>
                 <li>Click "View Context" on timeline entries related to your questions</li>
                 <li>Follow primary source links to examine original documents</li>
                 <li>Take notes in the tracker above on evidence that addresses your questions</li>
+                <li>Notice patterns: Which groups were targeted for exclusion? When did the U.S. create pathways for legal entry?</li>
                 <li>Generate new questions as you discover surprising information</li>
             </ul>
-            <p><strong>Time:</strong> 25-30 minutes for timeline exploration</p>
         </div>
 
         <!-- Filters -->
@@ -732,19 +894,19 @@
             <h2>Part 3: Reflect on What You Learned</h2>
             <div class="reflection-prompts">
                 <div class="prompt">
-                    <strong>1. Answer Reflection:</strong> Which of your questions were you able to answer using the timeline? What specific evidence did you find? Which questions remain unanswered?
+                    <strong>1. Answer Reflection:</strong> Which of your questions were you able to answer using the timeline? What specific evidence did you find? Which questions require more research?
                 </div>
                 <div class="prompt">
-                    <strong>2. New Questions:</strong> What new questions emerged as you explored the timeline? What information surprised you or challenged your assumptions?
+                    <strong>2. Dual Nature of Policy:</strong> Identify at least two examples from the timeline where U.S. policy <em>limited</em> immigration and two examples where it <em>allowed</em> or created pathways for immigration. What patterns do you notice?
                 </div>
                 <div class="prompt">
-                    <strong>3. Question Quality:</strong> Looking back at your original questions, how would you revise them now based on what you learned? What makes a good research question about deportation history?
+                    <strong>3. Unintended Consequences:</strong> Find one example where an immigration policy had effects that were different from what policymakers intended. What does this reveal about the complexity of immigration policy?
                 </div>
                 <div class="prompt">
-                    <strong>4. Historical Connections:</strong> How does understanding this history help you think critically about current immigration debates and policies?
+                    <strong>4. Forming Your Opinion:</strong> Based on the historical evidence you've explored, what is one change you think should be made to current U.S. immigration policy? What historical facts support your position? What might critics of your position argue?
                 </div>
                 <div class="prompt">
-                    <strong>5. Next Steps:</strong> If you were to research one of your questions further, what primary sources would you need? What archives or collections would you consult?
+                    <strong>5. New Questions & Next Steps:</strong> What new questions emerged as you explored the timeline? If you were to research one question further, what primary sources would you need to consult?
                 </div>
             </div>
         </div>
@@ -752,10 +914,13 @@
         <!-- Footer -->
         <footer>
             <p>
-                This timeline is designed as an inquiry-based teaching tool using the Question Formulation Technique (QFT) developed by the Right Question Institute. Students generate their own questions, explore primary sources, and develop information literacy skills through guided historical investigation.
+                <strong>About This Timeline:</strong> This timeline is designed as an inquiry-based teaching tool using the Question Formulation Technique (QFT) developed by the Right Question Institute. The chronology, events, and thematic analysis are adapted from "History of Deportation," created by historians Hidetaka Hirota, Ana Raquel Minian, and Yael Schacher for the American Historical Association's March 2025 Congressional Briefing. Annotations and contextual explanations draw from this source document and standard historical interpretation. All primary sources are linked directly to open-access archival materials, government documents, and scholarly collections.
             </p>
             <p>
-                Created for educational use. For questions about sources, pedagogical approaches, or the QFT method, consult with your instructor or librarian. Learn more about QFT at <a href="https://rightquestion.org" target="_blank" rel="noopener noreferrer">rightquestion.org</a>
+                <strong>For Instructors:</strong> This resource supports information literacy instruction by modeling how historians use primary sources to construct historical arguments. Students develop question-generation skills, source evaluation abilities, and evidence-based reasoning. Learn more about the QFT method at <a href="https://rightquestion.org" target="_blank" rel="noopener noreferrer">rightquestion.org</a>
+            </p>
+            <p>
+                Created for educational use.
             </p>
         </footer>
         </div>
@@ -774,21 +939,15 @@
                         year: '1639',
                         event: 'Colonial Massachusetts law authorized towns to remove poor people who had no legal settlement in the town.',
                         annotation: 'This represents one of the earliest forms of exclusion based on economic status in colonial America. The concept of "legal settlement" tied mobility rights to property and community membership.',
-                        inquiryPrompt: 'How did colonial-era concepts of belonging and exclusion shape later federal immigration policy?',
-                        sources: [
-                            {
-                                title: 'Note: Primary sources from this period require archival access',
-                                url: 'https://www.readex.com/products/early-american-imprints',
-                                type: 'Collection Guide'
-                            }
-                        ]
+                        inquiryPrompt: 'Why did colonial communities link the right to stay in a place with property ownership?',
+                        sources: []
                     },
                     {
                         id: 'f2',
                         year: '1683',
                         event: 'Colonial New York law authorized local officials to send transient beggars to "the country from whence they came."',
                         annotation: 'Early deportation laws focused on economic dependency rather than nationality. The phrase "country from whence they came" suggests removal could be international, not just between colonies.',
-                        inquiryPrompt: 'What does this law reveal about colonial attitudes toward poverty and mobility?',
+                        inquiryPrompt: 'How does this early focus on poverty shape our understanding of what deportation was originally meant to do?',
                         sources: [
                             {
                                 title: 'Colonial Laws of New York (Archive.org)',
@@ -802,7 +961,7 @@
                         year: '1794',
                         event: 'Massachusetts state law allowed for the expulsion of any pauper without legal settlement in the state to "any other State, or to any place beyond [the] sea where he belongs."',
                         annotation: 'Post-Revolutionary state laws continued colonial practices of removing the poor. Note the expanded scope to include deportation "beyond sea," foreshadowing federal-level international deportation.',
-                        inquiryPrompt: 'How did state-level exclusion policies create tensions with emerging federal immigration authority?',
+                        inquiryPrompt: 'What does the phrase "beyond the sea" tell us about who early Americans thought belonged in the country?',
                         sources: [
                             {
                                 title: 'Acts and Laws of Massachusetts, 1780-1805',
@@ -816,7 +975,7 @@
                         year: '1798',
                         event: 'The Alien Act authorized the president to arrest and deport foreign nationals whom he deemed dangerous to the peace and security of the United States.',
                         annotation: 'Part of the Alien and Sedition Acts, this law granted extraordinary executive power during tensions with France. It expired in 1800 and was never enforced, but established precedent for politically motivated deportation.',
-                        inquiryPrompt: 'What were the debates surrounding presidential power to deport "dangerous" individuals? How was this authority used or not used?',
+                        inquiryPrompt: 'Why did this law expire after two years without ever being used? What does that suggest about American attitudes toward presidential power?',
                         sources: [
                             {
                                 title: 'Alien Act of 1798 (Full Text)',
@@ -835,7 +994,7 @@
                         year: '1850',
                         event: 'Massachusetts immigration officials were authorized to deport foreign paupers from the United States.',
                         annotation: 'This marks a shift: states claiming authority to deport internationally, not just to other states. Massachusetts maintained immigrant inspection stations and charged head taxes on arriving passengers.',
-                        inquiryPrompt: 'What legal tensions emerged between state and federal control over immigration in the mid-19th century?',
+                        inquiryPrompt: 'What tensions would arise when state governments, rather than the federal government, controlled who could enter or leave the country?',
                         sources: [
                             {
                                 title: 'Massachusetts Session Laws, 1850',
@@ -849,7 +1008,7 @@
                         year: '1875',
                         event: 'The US Supreme Court declared state passenger laws in New York, Louisiana, and California unconstitutional.',
                         annotation: 'In Henderson v. Mayor of New York and related cases, the Court ruled that immigration regulation was exclusively a federal power. This decision cleared the way for federal immigration law.',
-                        inquiryPrompt: 'Read the Supreme Court decisions. What constitutional arguments did the Court use? How did states respond to losing immigration authority?',
+                        inquiryPrompt: 'Why would the Supreme Court decide that only the federal government, not states, can control immigration?',
                         sources: [
                             {
                                 title: 'Henderson v. Mayor of New York (1875)',
@@ -868,7 +1027,7 @@
                         year: '1882',
                         event: 'The Chinese Exclusion Act excluded Chinese laborers, with a provision for the deportation of Chinese who unlawfully entered the United States.',
                         annotation: 'The first federal law to exclude an entire ethnic group. Officially titled "An Act to Execute Certain Treaty Stipulations Relating to Chinese," it suspended immigration of Chinese laborers for 10 years and barred Chinese from naturalization.',
-                        inquiryPrompt: 'What arguments did supporters and opponents make in Congressional debates? How did Chinese communities and the Chinese government respond?',
+                        inquiryPrompt: 'Why was Chinese Exclusion the first law to target a specific ethnic group, rather than targeting based on poverty or politics?',
                         sources: [
                             {
                                 title: 'Chinese Exclusion Act of 1882 (Full Text)',
@@ -892,7 +1051,7 @@
                         year: '1882 (Aug)',
                         event: 'The Immigration Act excluded the poor, people with mental illness, and criminals.',
                         annotation: 'Passed just months after Chinese Exclusion, this law established federal inspection of immigrants and created the categories of "excludable" persons. It imposed a 50-cent head tax to fund immigration enforcement.',
-                        inquiryPrompt: 'How did immigration officials determine who was "likely to become a public charge"? What appeals or reviews were available?',
+                        inquiryPrompt: 'How did immigration officials decide who was "likely to become a public charge"? Who had the power to make that judgment?',
                         sources: [
                             {
                                 title: 'Immigration Act of 1882 (Full Text)',
@@ -906,7 +1065,7 @@
                         year: '1891',
                         event: 'The Immigration Act added people likely to become public charges, people with contagious diseases, polygamists, contract workers, and assisted immigrants to the excludable class. The act also provided for the deportation of foreign nationals found to have entered the United States unlawfully within a year after arrival.',
                         annotation: 'This law created the first federal immigration bureaucracy: the Office of the Superintendent of Immigration. The one-year deportation window was significant—it meant immigrants who had been in the US longer could not be deported.',
-                        inquiryPrompt: 'Why was there a time limit on deportation? What does this reveal about how Americans understood immigrant integration and belonging?',
+                        inquiryPrompt: 'Why would lawmakers create a time limit on deportation? What does this suggest about ideas of belonging and integration?',
                         sources: [
                             {
                                 title: 'Immigration Act of 1891 (Full Text, PDF)',
@@ -920,7 +1079,7 @@
                         year: '1892',
                         event: 'The Geary Act required Chinese in the US to obtain a Certificate of Residence. Those who failed to do so would become deportable.',
                         annotation: 'Extended Chinese Exclusion for 10 more years and required all Chinese laborers to carry certificates of residence with photographs. Foreshadowed modern identification requirements and mass registration systems.',
-                        inquiryPrompt: 'How did Chinese communities organize resistance to the Geary Act? What strategies did they use—legal challenges, civil disobedience, community support?',
+                        inquiryPrompt: 'How did requiring Chinese immigrants to carry photo IDs create a different class of citizenship or belonging?',
                         sources: [
                             {
                                 title: 'Geary Act of 1892 (Full Text)',
@@ -939,7 +1098,7 @@
                         year: '1924',
                         event: 'The Immigration Act introduced the national origins quota system, starting quantitative immigration restriction. It also introduced a consular control system and suspended virtually all Asian immigration.',
                         annotation: 'The Johnson-Reed Act created quotas favoring Northern and Western Europeans while virtually eliminating immigration from Asia, Southern Europe, and Eastern Europe. Required visa applications abroad, shifting control to US consuls.',
-                        inquiryPrompt: 'What were the racial and eugenic theories underlying the quota system? How did this law affect immigration patterns for the next four decades?',
+                        inquiryPrompt: 'What does it mean that this law gave more visas to people from Britain and Germany than to people from Italy or Poland? What values does that reflect?',
                         sources: [
                             {
                                 title: 'Immigration Act of 1924 (Full Text, PDF)',
@@ -970,7 +1129,7 @@
                         year: '1930s (Great Depression)',
                         event: 'One of the most extensive mass expulsion campaigns in US history, on the premise that Mexican migrants and US-born Mexican Americans were responsible for significant aspects of the nation\'s economic miseries. By the late 1930s, 2 million people had been expelled to Mexico; 60% are estimated to have been US citizens.',
                         annotation: 'Called "Mexican Repatriation," this campaign involved both formal deportations and coerced "voluntary" departures. Local governments, welfare agencies, and employers pressured Mexican families to leave, often with false promises of assistance.',
-                        inquiryPrompt: 'How were US citizens—including children—caught up in these expulsions? What legal protections existed, and why were they ineffective?',
+                        inquiryPrompt: 'How could 60% of people deported be U.S. citizens? What does this reveal about how citizenship was—or wasn\'t—protected?',
                         sources: [
                             {
                                 title: 'Decade of Betrayal: Mexican Repatriation (LOC)',
@@ -994,7 +1153,7 @@
                         year: '1942–64',
                         event: 'The Bracero Program, a guest worker program allowing temporary labor from Mexico, issued over 4.5 million contracts in 22 years. The program led to increased unsanctioned border crossings. More people wanted to join than there were available slots, leading to undocumented migration. Returning Braceros encouraged others to migrate.',
                         annotation: 'Public Law 78 formalized wartime agreements between US and Mexican governments. Braceros worked primarily in agriculture and railroads. The program created pathways and networks that shaped migration patterns for decades.',
-                        inquiryPrompt: 'What were working conditions like for braceros? How did the program shape both legal and unauthorized migration? Why did it create rather than solve "illegal immigration"?',
+                        inquiryPrompt: 'Why would a legal guest worker program actually increase illegal immigration? What does this suggest about how migration works?',
                         sources: [
                             {
                                 title: 'Bracero Program: Photographs and Documents',
@@ -1018,7 +1177,7 @@
                         year: '1954',
                         event: 'The Immigration and Naturalization Service launched Operation Wetback, a paramilitary campaign to expel Mexican migrants. Over 1 million people were apprehended; many families were separated by deportation. Operation Wetback reduced unauthorized crossings; the government replaced those workers—because of employer demands—with legal guest workers through the Bracero Program.',
                         annotation: 'Gen. Joseph Swing led this military-style operation using buses, trains, and ships to move deportees deep into Mexico\'s interior. Many US citizens were wrongly deported. The operation\'s "success" relied on expanding the Bracero Program simultaneously.',
-                        inquiryPrompt: 'What tactics did Border Patrol use? How did Mexican-American communities experience these raids? Why did "illegal immigration" persist despite mass deportations?',
+                        inquiryPrompt: 'If Operation Wetback reduced illegal immigration by expanding legal immigration, what does that tell us about why people migrate?',
                         sources: [
                             {
                                 title: 'Operation Wetback Documents (Eisenhower Library)',
@@ -1029,11 +1188,6 @@
                                 title: 'Newspaper Coverage: Chronicling America',
                                 url: 'https://chroniclingamerica.loc.gov/search/pages/results/?state=&date1=1954&date2=1954&proxtext=operation+wetback',
                                 type: 'Newspapers'
-                            },
-                            {
-                                title: 'Juan Ramon Garcia, Operation Wetback (1980)',
-                                url: 'https://www.worldcat.org/title/operation-wetback-the-mass-deportation-of-mexican-undocumented-workers-in-1954/oclc/6015099',
-                                type: 'Scholarly Book'
                             }
                         ]
                     },
@@ -1042,7 +1196,7 @@
                         year: '1964',
                         event: 'Congress ended the Bracero Program. Mexican workers accustomed to US employment continued migrating—now without authorization.',
                         annotation: 'Labor unions, religious groups, and civil rights activists pressured Congress to end the program due to exploitation and suppression of farmworker wages. The end of legal pathways didn\'t end labor demand, creating the conditions for large-scale unauthorized migration.',
-                        inquiryPrompt: 'Why was the Bracero Program ended? What happened to workers who had depended on it? How did ending legal pathways affect migration patterns?',
+                        inquiryPrompt: 'Why did ending a legal pathway for migration lead to more illegal immigration rather than less migration overall?',
                         sources: [
                             {
                                 title: 'Congressional Hearings on Bracero Program (1963-64)',
@@ -1061,7 +1215,7 @@
                         year: '1965',
                         event: 'The Immigration and Nationality Act (also known as the Hart-Celler Act): Replaced the race- and nationality-based quota system that had been in place since 1924 with numerical quotas on migration from all countries, including on independent countries in the Americas for the first time. Created a preference system that focused on immigrants\' skills and family relations with citizens or US residents and exempted immediate relatives of US citizens from the quota.',
                         annotation: 'Signed by President Johnson at the Statue of Liberty, this law abolished the discriminatory national origins system. However, it imposed the first-ever numerical limits on Western Hemisphere immigration (120,000/year), which particularly affected Mexico. This created "illegal immigration" from a region that had never faced such restrictions.',
-                        inquiryPrompt: 'Read the congressional debates. What did supporters predict about the law\'s effects? Were they correct? How did the Western Hemisphere cap contribute to unauthorized Mexican migration?',
+                        inquiryPrompt: 'How did a law meant to make immigration less racist actually create illegal immigration from Mexico and Latin America for the first time?',
                         sources: [
                             {
                                 title: 'Immigration and Nationality Act of 1965 (Full Text)',
@@ -1092,7 +1246,7 @@
                         year: '1980',
                         event: 'The Refugee Act: Provided a permanent and systematic procedure for the admission of refugees of special humanitarian concern to the US. Incorporated the UN Refugee Convention definition of a refugee into US law. Mandated the establishment of procedures whereby a person at the border or in the US, regardless of status, could seek asylum. Prohibited return of any asylum seeker to a country where their life or liberty would be threatened.',
                         annotation: 'This law created the modern US asylum system, bringing the US into compliance with the 1951 UN Refugee Convention. It separated refugee admissions from immigration quotas and established the principle of "non-refoulement"—not returning people to persecution.',
-                        inquiryPrompt: 'How is a "refugee" legally defined? What is the difference between a refugee and an asylum seeker? How has this law been implemented in practice?',
+                        inquiryPrompt: 'What\'s the difference between a refugee (admitted abroad) and an asylum seeker (arrives first, applies later)? Why does the law treat them differently?',
                         sources: [
                             {
                                 title: 'Refugee Act of 1980 (Full Text, PDF)',
@@ -1111,17 +1265,12 @@
                         year: '1980s',
                         event: 'Thousands of Central Americans fled to the US due to violence and poverty. US immigration officials refused to hear or summarily denied asylum claims from Salvadorans and Guatemalans, prompting the growth of the Sanctuary Movement and leading to a federal court settlement requiring new hearings for hundreds of thousands of asylum seekers. The US also pressured Mexico to block migrants before they reached the US border. As a result, Mexico deported more Central Americans than the US.',
                         annotation: 'The Reagan administration supported right-wing governments in El Salvador and Guatemala, leading to denial of asylum for those fleeing those regimes. The Sanctuary Movement involved churches providing refuge, leading to prosecutions. The 1990 settlement in ABC v. Thornburgh granted work permits and new asylum hearings.',
-                        inquiryPrompt: 'Why were Salvadoran and Guatemalan asylum seekers treated differently than those from Communist countries? What was the Sanctuary Movement, and what risks did participants take?',
+                        inquiryPrompt: 'Why would the U.S. deny asylum to people fleeing violence in countries the U.S. government supported? What role did politics play in asylum decisions?',
                         sources: [
                             {
                                 title: 'American Baptist Churches v. Thornburgh Settlement',
                                 url: 'https://www.uscis.gov/sites/default/files/document/foia/ABC_Settlement_Agreement.pdf',
                                 type: 'Legal Document'
-                            },
-                            {
-                                title: 'Sanctuary Movement Digital Collection',
-                                url: 'https://library.witness.org/product/sanctuary-movement-collection/',
-                                type: 'Archive'
                             },
                             {
                                 title: 'Oral Histories: Central American Refugees',
@@ -1135,7 +1284,7 @@
                         year: '1986',
                         event: 'The Immigration Reform and Control Act (IRCA): Introduced border fortification and increased border enforcement to deter unauthorized migration. Instead of inhibiting migration, the policy changed behavior, as migrants, fearing the risks of crossing multiple times, brought their families and settled permanently. The overall unauthorized migrant population living in the United States increased. Granted a pathway to permanent residency to unauthorized immigrants who had lived in the US since 1982 or worked in certain agricultural jobs. Imposed sanctions on employers who knowingly hire unauthorized workers.',
                         annotation: 'IRCA legalized approximately 2.7 million people, the largest legalization in US history. But its enforcement provisions had "unintended consequences": militarizing the border made circular migration more dangerous, leading migrants to stay permanently and bring families rather than return to Mexico seasonally.',
-                        inquiryPrompt: 'Why did border enforcement increase permanent settlement rather than stopping migration? What does this reveal about migration motivations and behaviors?',
+                        inquiryPrompt: 'How did making the border more dangerous actually increase the number of people staying permanently in the U.S.?',
                         sources: [
                             {
                                 title: 'Immigration Reform and Control Act of 1986 (Full Text)',
@@ -1159,7 +1308,7 @@
                         year: '1990',
                         event: 'The Immigration Act: Revised the preference categories for immigration visas (including limiting visas for low-skilled workers) and created new diversity and specialty immigrant visas and temporary visas. Authorized the attorney general to grant "temporary protected status" to nationals of countries suffering from armed conflicts, natural disasters, or "other extraordinary and temporary conditions."',
                         annotation: 'This law created the H-1B visa for skilled workers, the diversity visa lottery, and Temporary Protected Status (TPS). TPS has been granted to nationals of countries facing war, environmental disaster, or other crises, allowing them to remain in the US temporarily.',
-                        inquiryPrompt: 'What is Temporary Protected Status, and how has it been used? What countries\' nationals currently have TPS?',
+                        inquiryPrompt: 'Why would the U.S. create "temporary" protected status that has lasted decades for some countries? What makes protection temporary vs. permanent?',
                         sources: [
                             {
                                 title: 'Immigration Act of 1990 (Full Text, PDF)',
@@ -1178,7 +1327,7 @@
                         year: '1996',
                         event: 'The Illegal Immigration Reform and Immigrant Responsibility Act of 1996 (IIRAIRA): Added penalties for immigrants who commit crimes in the United States or undocumented immigrants who stay in the US for statutorily defined periods of time. Created an expedited removal process, mandating detention and fast-track removal without immigration court proceedings.',
                         annotation: 'IIRAIRA dramatically expanded deportability, making even minor crimes grounds for deportation and eliminating many forms of relief. It created "expedited removal" allowing Border Patrol to deport without hearings, and bars on re-entry (3-10 years) for those who overstay. These provisions are still the backbone of current enforcement.',
-                        inquiryPrompt: 'What crimes became grounds for deportation under IIRAIRA? How does expedited removal work, and what due process protections does it eliminate?',
+                        inquiryPrompt: 'What does it mean to be deported without a hearing? How does this change the role of courts and due process in immigration enforcement?',
                         sources: [
                             {
                                 title: 'IIRAIRA of 1996 (Full Text, PDF)',
@@ -1197,7 +1346,7 @@
                         year: '2004–18',
                         event: 'Mexico deported 1.7 million Central Americans; the US deported 1.1 million Central Americans.',
                         annotation: 'The US externalized immigration enforcement to Mexico, providing funding and diplomatic pressure for Mexico to intercept Central American migrants before they reached the US border. This policy shift made migration more dangerous and pushed flows toward smuggling networks.',
-                        inquiryPrompt: 'What does "externalization" of border enforcement mean? How did US policies shape Mexican immigration enforcement?',
+                        inquiryPrompt: 'What does it mean to "externalize" border enforcement? How does having Mexico enforce U.S. immigration goals change migration patterns?',
                         sources: [
                             {
                                 title: 'US-Mexico Border Enforcement Data',
@@ -1205,9 +1354,9 @@
                                 type: 'CBP Statistics'
                             },
                             {
-                                title: 'Mexico\'s Southern Border Strategy',
+                                title: 'Mexico\'s Southern Border Strategy (WOLA Analysis)',
                                 url: 'https://www.wola.org/analysis/mexicos-southern-border-security/',
-                                type: 'Analysis'
+                                type: 'Policy Analysis'
                             }
                         ]
                     },
@@ -1216,7 +1365,7 @@
                         year: '2006',
                         event: 'The Secure Fences Act mandated that the Secretary of Homeland Security act quickly to achieve operational control over US international land and maritime borders, including an expansion of existing walls, fences, and surveillance.',
                         annotation: 'This law authorized approximately 700 miles of fencing along the US-Mexico border. Border wall construction became a central political issue, with debates over effectiveness, cost, environmental impact, and symbolism.',
-                        inquiryPrompt: 'What were the arguments for and against border wall construction? What were the actual effects on migration patterns?',
+                        inquiryPrompt: 'Did building 700 miles of fence reduce unauthorized border crossings, or did it just change where and how people crossed?',
                         sources: [
                             {
                                 title: 'Secure Fence Act of 2006 (Full Text)',
@@ -1235,7 +1384,7 @@
                         year: '2008',
                         event: 'The Trafficking Victims Protection Act created visas for victims of trafficking and special screenings for unaccompanied children. Unaccompanied children from noncontiguous territories are referred to the Office of Refugee Resettlement.',
                         annotation: 'The William Wilberforce TVPRA established special protections for children arriving at the border alone. Children from countries other than Mexico and Canada cannot be immediately deported—they must be transferred to ORR custody and given immigration hearings.',
-                        inquiryPrompt: 'What protections does the TVPRA provide for unaccompanied children? How has this law been implemented during migration surges?',
+                        inquiryPrompt: 'Why would the law treat unaccompanied children from Mexico differently from those from Guatemala or Honduras?',
                         sources: [
                             {
                                 title: 'Trafficking Victims Protection Reauthorization Act (Full Text)',
@@ -1254,7 +1403,7 @@
                         year: '2010',
                         event: 'Los Zetas cartel massacred 72 Central American migrants who were unable to pay the cartel. Cartel violence against Central American migrants has since escalated.',
                         annotation: 'The San Fernando massacre drew international attention to violence against migrants in Mexico. As border enforcement pushed migrants into more dangerous routes, they became vulnerable to cartel extortion, kidnapping, sexual violence, and murder. This violence became a basis for asylum claims.',
-                        inquiryPrompt: 'How did border enforcement policies create conditions for cartel violence against migrants? What has happened to accountability for these crimes?',
+                        inquiryPrompt: 'How did U.S. border policies create conditions where cartels could prey on migrants? Who is responsible for migrant safety during the journey?',
                         sources: [
                             {
                                 title: 'News Coverage: San Fernando Massacre',
@@ -1273,7 +1422,7 @@
                         year: '2012',
                         event: 'The Deferred Action for Childhood Arrivals (DACA) executive action enabled young adults (ages 15 to 30) brought to the US illegally as children to apply for temporary deportation relief and a two-year work permit.',
                         annotation: 'DACA provided renewable two-year protection from deportation for approximately 700,000 young people. It was an executive action, not a law, making it vulnerable to policy changes. Recipients are often called "Dreamers" after the failed DREAM Act legislation.',
-                        inquiryPrompt: 'What is the difference between DACA and the DREAM Act? What are the requirements for DACA? What legal challenges has DACA faced?',
+                        inquiryPrompt: 'Why is DACA more vulnerable to being ended than a law passed by Congress? What\'s the difference between executive action and legislation?',
                         sources: [
                             {
                                 title: 'DACA Announcement (DHS Memo, 2012)',
@@ -1292,7 +1441,7 @@
                         year: '2015',
                         event: 'Decision in Flores v. Johnson set detention conditions for families and limited it to 20 days.',
                         annotation: 'The Flores Settlement Agreement (originally from 1997, modified in 2015) established that children cannot be held in unlicensed facilities or detained longer than 20 days. This created tensions with family detention policies and "catch and release" debates.',
-                        inquiryPrompt: 'What were the conditions that led to the Flores case? How has this settlement shaped detention policies for families?',
+                        inquiryPrompt: 'What happens when a family\'s asylum case takes longer than 20 days to decide? How does the Flores rule affect enforcement policy?',
                         sources: [
                             {
                                 title: 'Flores Settlement Agreement (1997)',
@@ -1311,7 +1460,7 @@
                         year: '2020',
                         event: 'Section 265 of US Code Title 42 was invoked to prohibit entry and authorize expulsion of border crossers in the name of preventing the spread of COVID-19.',
                         annotation: 'Title 42 allowed immediate expulsion without asylum hearings, justified as a public health measure. It was used over 2 million times and remained in effect until May 2023. Critics argued it circumvented asylum law under the guise of public health.',
-                        inquiryPrompt: 'What is Title 42, and how does it differ from Title 8 immigration law? What were the public health justifications? How was it challenged?',
+                        inquiryPrompt: 'Can public health emergencies override the right to seek asylum? Where should the line be between public health and refugee protection?',
                         sources: [
                             {
                                 title: 'CDC Order Suspending Introduction of Persons (2020)',
@@ -1390,7 +1539,7 @@
                             ` : ''}
                             ${entry.inquiryPrompt ? `
                                 <div class="inquiry">
-                                    <div class="inquiry-label">Research Question</div>
+                                    <div class="inquiry-label">Think About This</div>
                                     <p>${entry.inquiryPrompt}</p>
                                 </div>
                             ` : ''}
@@ -1429,6 +1578,12 @@
             // Attach event listeners to toggle buttons
             document.querySelectorAll('.toggle-btn').forEach(btn => {
                 btn.addEventListener('click', handleToggle);
+            });
+            
+            // Add staggered animation delays to entries
+            const entries = document.querySelectorAll('.entry-card');
+            entries.forEach((entry, index) => {
+                entry.style.animationDelay = `${index * 0.05}s`;
             });
         }
 
