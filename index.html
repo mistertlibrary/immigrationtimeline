@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>History of Deportation in the United States - Interactive Timeline</title>
-    <meta name="description" content="A QFT exploration of US immigration enforcement and deportation policy from the colonial era to the present!">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Spectral:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
-        /* SAFE CSS: Scoped container that preserves browser defaults for accessibility */
+        /* SAFE CSS: Preserves browser accessibility defaults */
         .deportation-timeline-container {
             font-family: 'Spectral', Georgia, serif;
             background: linear-gradient(to bottom right, #f5f5f4, #fef3c7, #f5f5f4);
@@ -20,7 +19,6 @@
             scroll-behavior: smooth;
         }
         
-        /* Ensure proper box-sizing without breaking browser defaults */
         .deportation-timeline-container *,
         .deportation-timeline-container *::before,
         .deportation-timeline-container *::after {
@@ -30,43 +28,20 @@
         /* CRITICAL: Accessible focus states for keyboard navigation */
         .deportation-timeline-container button:focus,
         .deportation-timeline-container textarea:focus,
-        .deportation-timeline-container a:focus,
-        .deportation-timeline-container .filter-btn:focus {
+        .deportation-timeline-container a:focus {
             outline: 3px solid #2563eb;
             outline-offset: 2px;
         }
         
-        /* High contrast focus for toggle buttons */
         .deportation-timeline-container .toggle-btn:focus {
             outline: 3px solid #d97706;
             outline-offset: 2px;
         }
         
-        /* Typography resets */
         .deportation-timeline-container h1,
         .deportation-timeline-container h2,
         .deportation-timeline-container h3 {
             font-family: 'Crimson Text', Georgia, serif;
-            margin: 0;
-        }
-        
-        .deportation-timeline-container p {
-            margin: 0;
-        }
-        
-        .deportation-timeline-container ul {
-            margin: 0;
-            padding: 0;
-        }
-        
-        /* Custom cursor for links */
-        .deportation-timeline-container a,
-        .deportation-timeline-container button {
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23d97706" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>'), pointer;
-        }
-        
-        .deportation-timeline-container .save-btn {
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%2316a34a" stroke-width="2.5"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>'), pointer;
         }
         
         .deportation-timeline-container .dt-container {
@@ -125,7 +100,7 @@
             border-radius: 0.75rem;
             padding: 1.5rem;
             margin-bottom: 2rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             animation: dt-scaleIn 0.5s ease-out;
         }
         
@@ -145,13 +120,14 @@
             font-weight: 400;
         }
         
+        /* ACCESSIBILITY FIX: Improved contrast for strong text */
         .deportation-timeline-container .i-can-content strong {
             font-weight: 700;
-            color: #fffbeb;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            color: #fffbeb; /* Lighter yellow for better contrast on purple */
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
         }
         
-        /* QFT Section */
+        /* QFT Instructions */
         .deportation-timeline-container .qft-opener {
             background: #f0f9ff;
             border: 3px solid #0369a1;
@@ -165,7 +141,12 @@
             font-size: 1.75rem;
             color: #0c4a6e;
             margin-bottom: 1rem;
-            font-weight: 700;
+        }
+        
+        .deportation-timeline-container .qft-opener > p {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            color: #0c4a6e;
         }
         
         .deportation-timeline-container .qfocus-statement {
@@ -179,77 +160,62 @@
             line-height: 1.6;
         }
         
-        .deportation-timeline-container .qft-process {
-            background: #e0f2fe;
-            border: 2px solid #0ea5e9;
-            border-radius: 0.5rem;
-            padding: 1.25rem;
-            margin: 1.5rem 0;
+        .deportation-timeline-container .qft-steps {
+            margin-top: 1.5rem;
         }
         
-        .deportation-timeline-container .qft-process h3 {
-            font-size: 1rem;
-            color: #0369a1;
-            margin-bottom: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        
-        .deportation-timeline-container .qft-process ol {
-            margin-left: 1.5rem;
-            list-style: decimal;
-        }
-        
-        .deportation-timeline-container .qft-process li {
-            color: #0c4a6e;
-            line-height: 1.6;
-            margin-bottom: 0.5rem;
-        }
-        
-        .deportation-timeline-container .qft-process strong {
-            font-weight: 600;
-            color: #0369a1;
-        }
-        
-        .deportation-timeline-container .qft-context {
+        .deportation-timeline-container .qft-step {
             background: white;
             padding: 1rem;
+            margin-bottom: 1rem;
             border-radius: 0.5rem;
-            margin-top: 1rem;
+            border-left: 3px solid #38bdf8;
         }
         
-        .deportation-timeline-container .qft-context p {
-            font-size: 0.875rem;
-            color: #0c4a6e;
-            line-height: 1.6;
+        .deportation-timeline-container .qft-step h3 {
+            font-size: 1.125rem;
+            color: #0369a1;
             margin-bottom: 0.5rem;
-        }
-        
-        .deportation-timeline-container .qft-context p:last-child {
-            margin-bottom: 0;
-        }
-        
-        .deportation-timeline-container .qft-context em {
-            font-style: italic;
-        }
-        
-        .deportation-timeline-container .qft-context strong {
             font-weight: 600;
         }
         
-        .deportation-timeline-container .citation {
-            font-size: 0.75rem;
-            color: #0369a1;
-            margin-top: 0.75rem;
-            padding-top: 0.75rem;
-            border-top: 1px solid #e0f2fe;
-            font-style: italic;
+        .deportation-timeline-container .qft-step ul {
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+            list-style-type: disc;
         }
         
-        .deportation-timeline-container .citation a {
-            color: #0369a1;
-            text-decoration: underline;
+        .deportation-timeline-container .qft-step li {
+            color: #0c4a6e;
+            margin-bottom: 0.25rem;
+            line-height: 1.5;
+        }
+
+        /* Print Button */
+        .deportation-timeline-container .print-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 1rem;
+        }
+
+        .deportation-timeline-container .print-btn {
+            background: white;
+            border: 2px solid #0c4a6e;
+            color: #0c4a6e;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .deportation-timeline-container .print-btn:hover {
+            background: #f0f9ff;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         
         /* Question Tracker */
@@ -262,46 +228,11 @@
             animation: dt-slideInUp 0.6s ease-out;
         }
         
-        .deportation-timeline-container .question-tracker-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-        }
-        
         .deportation-timeline-container .question-tracker h3 {
             font-size: 1.25rem;
             color: #166534;
+            margin-bottom: 1rem;
             font-weight: 700;
-        }
-        
-        .deportation-timeline-container .save-status {
-            font-size: 0.75rem;
-            color: #16a34a;
-            font-style: italic;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .deportation-timeline-container .save-btn {
-            padding: 0.5rem 1rem;
-            background: white;
-            border: 2px solid #16a34a;
-            color: #166534;
-            border-radius: 0.375rem;
-            font-size: 0.875rem;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-        
-        .deportation-timeline-container .save-btn:hover {
-            background: #16a34a;
-            color: white;
-            transform: translateY(-1px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         
         .deportation-timeline-container .question-item {
@@ -328,7 +259,12 @@
             line-height: 1.5;
             resize: vertical;
             color: #166534;
-            background: white;
+        }
+        
+        .deportation-timeline-container .question-item textarea:focus,
+        .deportation-timeline-container .notes-area textarea:focus {
+            outline: 2px solid #16a34a;
+            outline-offset: 2px;
         }
         
         .deportation-timeline-container .notes-area {
@@ -372,6 +308,8 @@
         
         .deportation-timeline-container .timeline-instructions ul {
             margin-left: 1.5rem;
+            margin-top: 0.5rem;
+            margin-bottom: 0.75rem;
             list-style-type: disc;
         }
         
@@ -403,10 +341,12 @@
             border-radius: 9999px;
             font-size: 0.875rem;
             font-weight: 600;
+            cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border: 1px solid #d6d3d1;
             background: white;
             color: #44403c;
+            transform: scale(1);
         }
         
         .deportation-timeline-container .filter-btn:hover {
@@ -420,6 +360,10 @@
             color: white;
             border-color: #92400e;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .deportation-timeline-container .filter-btn:active {
+            transform: translateY(0);
         }
         
         /* Section */
@@ -513,6 +457,19 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
         
+        .deportation-timeline-container .entry-card:hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -6px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #f59e0b;
+            animation: dt-pulse 1.5s infinite;
+            pointer-events: none;
+        }
+        
         .deportation-timeline-container .entry-header {
             display: flex;
             justify-content: space-between;
@@ -536,6 +493,7 @@
             color: #57534e;
             background: none;
             border: none;
+            cursor: pointer;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             font-weight: 600;
@@ -561,6 +519,8 @@
         .deportation-timeline-container .entry-details {
             display: none;
             animation: dt-fadeIn 0.3s ease-out;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
         }
         
         .deportation-timeline-container .entry-details.visible {
@@ -681,24 +641,6 @@
             margin-left: 0.5rem;
         }
         
-        /* Historical Nuance Note */
-        .deportation-timeline-container .nuance-note {
-            background: #fef3c7;
-            border-left: 3px solid #f59e0b;
-            padding: 0.625rem;
-            border-radius: 0 0.25rem 0.25rem 0;
-            margin-top: 0.5rem;
-            font-size: 0.8125rem;
-            color: #78350f;
-            line-height: 1.5;
-        }
-        
-        .deportation-timeline-container .nuance-note::before {
-            content: "📌 Historical Note: ";
-            font-weight: 600;
-            color: #92400e;
-        }
-        
         /* Reflection Section */
         .deportation-timeline-container .reflection-section {
             background: #faf5ff;
@@ -737,6 +679,34 @@
         
         .deportation-timeline-container .prompt em {
             font-style: italic;
+        }
+        
+        /* Footer */
+        .deportation-timeline-container footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #d6d3d1;
+        }
+        
+        .deportation-timeline-container footer p {
+            font-size: 0.875rem;
+            color: #57534e;
+            line-height: 1.6;
+        }
+        
+        .deportation-timeline-container footer p:last-child {
+            font-size: 0.75rem;
+            color: #78716c;
+            margin-top: 1rem;
+        }
+        
+        .deportation-timeline-container footer a {
+            color: #78716c;
+            text-decoration: underline;
+        }
+        
+        .deportation-timeline-container footer strong {
+            font-weight: 600;
         }
         
         /* Animations */
@@ -784,37 +754,12 @@
             }
         }
         
-        /* Print Styles */
-        @media print {
-            .deportation-timeline-container {
-                background: white;
+        @keyframes dt-pulse {
+            0%, 100% {
+                transform: scale(1);
             }
-            
-            .deportation-timeline-container .filters,
-            .deportation-timeline-container .toggle-btn,
-            .deportation-timeline-container .save-btn,
-            .deportation-timeline-container .save-status,
-            .deportation-timeline-container .timeline-instructions {
-                display: none;
-            }
-            
-            .deportation-timeline-container .entry-details {
-                display: block !important;
-            }
-            
-            .deportation-timeline-container .question-tracker textarea,
-            .deportation-timeline-container .notes-area textarea {
-                border: 1px solid #ccc;
-                page-break-inside: avoid;
-            }
-            
-            .deportation-timeline-container .question-tracker,
-            .deportation-timeline-container .qft-opener {
-                page-break-inside: avoid;
-            }
-            
-            .deportation-timeline-container .entry {
-                page-break-inside: avoid;
+            50% {
+                transform: scale(1.05);
             }
         }
         
@@ -851,10 +796,73 @@
             .deportation-timeline-container .entry {
                 padding-left: 1.5rem;
             }
+        }
+        
+        /* Print Friendly Styles */
+        @media print {
+            .deportation-timeline-container .dt-container {
+                max-width: 100%;
+                padding: 0;
+                margin: 0;
+            }
             
-            .deportation-timeline-container .question-tracker-header {
-                flex-direction: column;
-                align-items: flex-start;
+            /* Hide interactive elements */
+            .deportation-timeline-container .filters,
+            .deportation-timeline-container .toggle-btn,
+            .deportation-timeline-container footer,
+            .deportation-timeline-container .print-actions,
+            .deportation-timeline-container .qft-steps {
+                display: none !important;
+            }
+
+            /* Expand all details */
+            .deportation-timeline-container .entry-details {
+                display: block !important;
+                max-height: none !important;
+                border-top: 1px solid #eee;
+                margin-top: 0.5rem;
+                padding-top: 0.5rem;
+            }
+
+            /* Simplify cards */
+            .deportation-timeline-container .entry-card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+                margin-bottom: 1rem;
+                padding: 1rem;
+            }
+
+            .deportation-timeline-container .entry {
+                padding-left: 0;
+                padding-bottom: 1rem;
+            }
+            
+            .deportation-timeline-container .entry::before,
+            .deportation-timeline-container .entry::after {
+                display: none;
+            }
+
+            /* Better text areas */
+            .deportation-timeline-container .question-tracker textarea,
+            .deportation-timeline-container .notes-area textarea {
+                border: 1px solid #999;
+                resize: none;
+                height: auto;
+                min-height: 100px;
+                color: black;
+                font-family: serif;
+            }
+            
+            /* Page break controls */
+            .deportation-timeline-container .qft-opener,
+            .deportation-timeline-container .question-tracker,
+            .deportation-timeline-container .timeline-section h2 {
+                page-break-before: always;
+            }
+            
+            .deportation-timeline-container .question-item {
+                page-break-inside: avoid;
             }
         }
     </style>
@@ -883,102 +891,145 @@
         </div>
 
         <div class="qft-opener">
-            <h2>Question Focus</h2>
+            <h2>Part 1: Generate Your Questions</h2>
+            
+            <p>
+                U.S. immigration policy is a system with two sides: it creates pathways for people to enter legally (like visas, refugee programs, and citizenship) while also enforcing limits through deportation, border control, and exclusion. To understand this system, you'll start by generating your own questions about one aspect of this history.
+            </p>
             
             <div class="qfocus-statement">
+                <strong>Question Focus:</strong><br>
                 "In 2025, interior deportations more than quadrupled to their highest level in decades. ICE detention reached a record 73,000 people—84% higher than the previous year."
             </div>
             
-            <div class="qft-process">
-                <h3>The Question Formulation Technique (QFT) Process</h3>
-                <ol>
-                    <li><strong>Produce Questions:</strong> Ask as many questions as you can. Don't stop to judge or answer. Write exactly as stated.</li>
-                    <li><strong>Improve Questions:</strong> Mark each as closed-ended (C) or open-ended (O). Practice changing them from one type to another.</li>
-                    <li><strong>Prioritize:</strong> Choose a top 3. These are the questions your group most wants to investigate.</li>
-                    <li><strong>Investigate:</strong> Use the timeline below to find evidence that addresses your questions.</li>
-                    <li><strong>Reflect:</strong> What did you learn? What new questions emerged?</li>
-                </ol>
-            </div>
-            
-            <div class="qft-context">
-                <p><strong>Context:</strong> These are verified statistics from Immigration and Customs Enforcement (ICE), the American Immigration Council, and migration research organizations tracking current deportation policies.</p>                
-                <div class="citation">
-                    <strong>Sources:</strong> Interior deportation increase documented in "Immigration Enforcement in the First Nine Months of the Second Trump Administration," <em>Deportation Data Project</em>, 2025 (<a href="https://web.archive.org/web/20260115/https://deportationdata.org/analysis/immigration-enforcement-first-nine-months-trump.html" target="_blank" rel="noopener noreferrer">archived link</a>); Record detention levels from "ICE's Detainee Population Reaches New Record High," <em>CBS News</em>, January 2026 (<a href="https://web.archive.org/web/20260206115503/https://www.cbsnews.com/news/ices-detainee-population-record-high-of-73000/" target="_blank" rel="noopener noreferrer">archived link</a>), and American Immigration Council Report, December 2025 (<a href="https://web.archive.org/web/20260120/https://www.americanimmigrationcouncil.org/press-release/report-trump-immigration-detention-2026/" target="_blank" rel="noopener noreferrer">archived link</a>).
+            <div class="qft-steps">
+                <div class="qft-step">
+                    <h3>Step 1: Produce Questions</h3>
+                    <p>In your small group (3-4 students), follow these rules:</p>
+                    <ul>
+                        <li>Ask as many questions as you can about the Question Focus</li>
+                        <li>Do not stop to discuss, judge, or answer any question</li>
+                        <li>Write down every question exactly as it is stated</li>
+                        <li>Change any statements into questions</li>
+                    </ul>
+                </div>
+                
+                <div class="qft-step">
+                    <h3>Step 2: Improve Your Questions</h3>
+                    <p><em>Discuss these steps verbally with your group:</em></p>
+                    <ul>
+                        <li>Mark each question as <strong>closed-ended (C)</strong> or <strong>open-ended (O)</strong></li>
+                        <li>Discuss: What are the advantages and disadvantages of each type?</li>
+                        <li>Practice changing questions from one type to another</li>
+                        <li>Select at least 2 questions to revise and improve</li>
+                    </ul>
+                </div>
+                
+                <div class="qft-step">
+                    <h3>Step 3: Prioritize</h3>
+                    <ul>
+                        <li>Review all your questions</li>
+                        <li>Select your <strong>top 3 questions</strong> your group most wants to explore</li>
+                        <li>Be prepared to explain why these questions matter</li>
+                        <li>Record your priority questions in the tracker below</li>
+                    </ul>
                 </div>
             </div>
         </div>
 
+        <div class="print-actions">
+            <span id="saveStatus" class="save-status" style="font-size: 0.875rem; color: #16a34a; font-style: italic; margin-right: 1rem;" aria-live="polite"></span>
+            <button class="print-btn" onclick="window.print()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 9V2h12v7"></path>
+                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                    <path d="M6 14h12v8H6z"></path>
+                </svg>
+                Print / Save My Work
+            </button>
+        </div>
+
         <div class="question-tracker">
-            <div class="question-tracker-header">
-                <h3>Record Your Priority Questions</h3>
-                <span class="save-status" id="saveStatus" aria-live="polite"></span>
-                <button class="save-btn" onclick="window.print()">Print My Work</button>
-            </div>
+            <h3>Our Group's Priority Questions</h3>
             <div class="question-list">
                 <div class="question-item">
-                    <label for="q1">Priority Question #1:</label>
-                    <textarea id="q1" placeholder="After your group discussion, write your first priority question here..."></textarea>
+                    <label>Priority Question #1:</label>
+                    <textarea placeholder="Type your group's first priority question here..."></textarea>
                 </div>
                 <div class="question-item">
-                    <label for="q2">Priority Question #2:</label>
-                    <textarea id="q2" placeholder="After your group discussion, write your second priority question here..."></textarea>
+                    <label>Priority Question #2:</label>
+                    <textarea placeholder="Type your group's second priority question here..."></textarea>
                 </div>
                 <div class="question-item">
-                    <label for="q3">Priority Question #3:</label>
-                    <textarea id="q3" placeholder="After your group discussion, write your third priority question here..."></textarea>
+                    <label>Priority Question #3:</label>
+                    <textarea placeholder="Type your group's third priority question here..."></textarea>
                 </div>
             </div>
             <div class="notes-area">
-                <label for="notes">Evidence & Notes from Timeline Investigation:</label>
-                <textarea id="notes" placeholder="As you explore the timeline, record important findings, patterns, and evidence that helps answer your questions..."></textarea>
+                <label>Notes & Evidence from the Timeline:</label>
+                <textarea placeholder="As you explore the timeline, record important findings, surprising information, and evidence related to your questions..."></textarea>
             </div>
         </div>
 
         <div class="timeline-instructions">
-            <h2>Investigate the Timeline</h2>
-            <p><strong>Your task:</strong> Use this timeline to find evidence that helps answer your priority questions. Pay attention to how different policies both <em>limited</em> immigration (through exclusion, deportation, and enforcement) and <em>allowed</em> immigration (through legal pathways, programs, and protections).</p>
+            <h2>Part 2: Investigate Using the Timeline</h2>
+            <p><strong>Your task:</strong> Use this interactive timeline to find evidence that helps you answer your top 3 questions. As you explore, pay attention to how different policies both <em>limited</em> immigration (through exclusion, deportation, and enforcement) and <em>allowed</em> immigration (through legal pathways, programs, and protections).</p>
+            <p><strong>Investigation steps:</strong></p>
             <ul>
-                <li>Click "View Context" on timeline entries to see historical background and thought-provoking questions</li>
-                <li>Explore diverse resources: primary documents, scholarly articles, museum exhibits, videos, and podcasts</li>
-                <li>Take notes above on evidence related to your questions</li>
-                <li>Use the period filters to focus your search: <strong>Foundations</strong> shows early policies, <strong>Modern Era</strong> shows recent developments</li>
+                <li>Click "View Context" on timeline entries related to your questions</li>
+                <li>Follow primary source links to examine original documents</li>
+                <li>Take notes in the tracker above on evidence that addresses your questions</li>
+                <li>Notice patterns: Which groups were targeted for exclusion? When did the U.S. create pathways for legal entry?</li>
+                <li>Generate new questions as you discover surprising information</li>
             </ul>
         </div>
 
-        <div class="filters" role="navigation" aria-label="Timeline period filters">
-            <button class="filter-btn active" data-section="all" aria-pressed="true">All Periods</button>
-            <button class="filter-btn" data-section="foundations" aria-pressed="false">Foundations (pre-1930)</button>
-            <button class="filter-btn" data-section="midcentury" aria-pressed="false">Mid-Century (1930s-80s)</button>
-            <button class="filter-btn" data-section="modern" aria-pressed="false">Modern Era (1980-present)</button>
+        <div class="filters">
+            <button class="filter-btn active" data-section="all">All Periods</button>
+            <button class="filter-btn" data-section="foundations">Foundations (pre-1930)</button>
+            <button class="filter-btn" data-section="midcentury">Mid-Century (1930s-80s)</button>
+            <button class="filter-btn" data-section="modern">Modern Era (1980-present)</button>
         </div>
 
         <div id="timeline-content"></div>
 
         <div class="reflection-section">
-            <h2>Reflect</h2>
+            <h2>Part 3: Reflect on What You Learned</h2>
             <div class="reflection-prompts">
                 <div class="prompt">
-                    <strong>1.</strong> Which of your questions were you able to answer using the timeline? What specific evidence did you find?
+                    <strong>1. Answer Reflection:</strong> Which of your questions were you able to answer using the timeline? What specific evidence did you find? Which questions require more research?
                 </div>
                 <div class="prompt">
-                    <strong>2.</strong> Identify at least two examples where U.S. policy <em>limited</em> immigration and two where it <em>allowed</em> or created pathways for immigration. (Try filtering by <strong>Foundations</strong> vs. <strong>Modern Era</strong> to see patterns.) What do you notice?
+                    <strong>2. Dual Nature of Policy:</strong> Identify at least two examples from the timeline where U.S. policy <em>limited</em> immigration and two examples where it <em>allowed</em> or created pathways for immigration. What patterns do you notice?
                 </div>
                 <div class="prompt">
-                    <strong>3.</strong> Find one example where a policy had unintended consequences. What does this reveal about the complexity of immigration policy?
+                    <strong>3. Unintended Consequences:</strong> Find one example where an immigration policy had effects that were different from what policymakers intended. What does this reveal about the complexity of immigration policy?
                 </div>
                 <div class="prompt">
-                    <strong>4.</strong> Based on the historical evidence you explored, what is one change you think should be made to current U.S. immigration policy? What historical facts support your position?
+                    <strong>4. Forming Your Opinion:</strong> Based on the historical evidence you've explored, what is one change you think should be made to current U.S. immigration policy? What historical facts support your position? What might critics of your position argue?
                 </div>
                 <div class="prompt">
-                    <strong>5.</strong> What new questions emerged as you explored the timeline? How would you investigate them further?
+                    <strong>5. New Questions & Next Steps:</strong> What new questions emerged as you explored the timeline? If you were to research one question further, what primary sources would you need to consult?
                 </div>
             </div>
         </div>
+
+        <footer>
+            <p>
+                <strong>About This Timeline:</strong> This timeline is designed as an inquiry-based teaching tool using the Question Formulation Technique (QFT) developed by the Right Question Institute. The chronology, events, and thematic analysis are adapted from "History of Deportation," created by historians Hidetaka Hirota, Ana Raquel Minian, and Yael Schacher for the American Historical Association's March 2025 Congressional Briefing. Annotations and contextual explanations draw from this source document and standard historical interpretation. All primary sources are linked directly to open-access archival materials, government documents, and scholarly collections.
+            </p>
+            <p>
+                <strong>For Instructors:</strong> This resource supports information literacy instruction by modeling how historians use primary sources to construct historical arguments. Students develop question-generation skills, source evaluation abilities, and evidence-based reasoning. Learn more about the QFT method at <a href="https://rightquestion.org" target="_blank" rel="noopener noreferrer">rightquestion.org</a>
+            </p>
+            <p>
+                Created for educational use.
+            </p>
+        </footer>
         </div>
     </div>
 
     <script>
-        // Timeline data - Full dataset with 2025 updates and accessible sources
+        // Timeline data with updated, student-friendly primary source links
         const timelineData = {
             foundations: {
                 title: "The Foundations of US Deportation Policy",
@@ -1001,9 +1052,9 @@
                         inquiryPrompt: 'How does this early focus on poverty shape our understanding of what deportation was originally meant to do?',
                         sources: [
                             {
-                                title: 'History of Vagrancy and Begging (Archive.org text)',
+                                title: 'History of Vagrancy (Text View)',
                                 url: 'https://archive.org/stream/historyofvagran00ribt/historyofvagran00ribt_djvu.txt',
-                                type: 'Digital Archive'
+                                type: 'Digitized Text'
                             }
                         ]
                     },
@@ -1029,14 +1080,9 @@
                         inquiryPrompt: 'Why did this law expire after two years without ever being used? What does that suggest about American attitudes toward presidential power?',
                         sources: [
                             {
-                                title: 'NARA: Alien and Sedition Acts',
+                                title: 'NARA Milestone Documents: Alien & Sedition Acts',
                                 url: 'https://www.archives.gov/milestone-documents/alien-and-sedition-acts',
-                                type: 'NARA Milestone Docs'
-                            },
-                            {
-                                title: 'Yale Avalon Project: Alien Act Text',
-                                url: 'https://avalon.law.yale.edu/18th_century/alien.asp',
-                                type: 'Primary Source'
+                                type: 'Primary Source & Transcript'
                             }
                         ]
                     },
@@ -1065,11 +1111,6 @@
                                 title: 'Henderson v. Mayor of New York (1875)',
                                 url: 'https://supreme.justia.com/cases/federal/us/92/259/',
                                 type: 'Supreme Court Case'
-                            },
-                            {
-                                title: 'Chy Lung v. Freeman (1875)',
-                                url: 'https://supreme.justia.com/cases/federal/us/92/275/',
-                                type: 'Supreme Court Case'
                             }
                         ]
                     },
@@ -1081,19 +1122,9 @@
                         inquiryPrompt: 'Why was Chinese Exclusion the first law to target a specific ethnic group, rather than targeting based on poverty or politics?',
                         sources: [
                             {
-                                title: 'NARA: Chinese Exclusion Act',
+                                title: 'NARA Milestone Documents: Chinese Exclusion Act',
                                 url: 'https://www.archives.gov/milestone-documents/chinese-exclusion-act',
-                                type: 'NARA Milestone Docs'
-                            },
-                            {
-                                title: 'LOC: Chinese Exclusion Act Resources',
-                                url: 'https://guides.loc.gov/chinese-exclusion-act',
-                                type: 'LOC Guide'
-                            },
-                            {
-                                title: 'Chronicling America: Chinese Exclusion Coverage',
-                                url: 'https://guides.loc.gov/chronicling-america-chinese-exclusion-act',
-                                type: 'Newspapers'
+                                type: 'Primary Source & Transcript'
                             }
                         ]
                     },
@@ -1136,11 +1167,6 @@
                                 title: 'Geary Act of 1892 (Full Text)',
                                 url: 'https://www.loc.gov/item/llsl-v27/',
                                 type: 'Library of Congress'
-                            },
-                            {
-                                title: 'LOC: Chinese American Resistance',
-                                url: 'https://guides.loc.gov/chinese-exclusion-act',
-                                type: 'LOC Resource Guide'
                             }
                         ]
                     },
@@ -1152,14 +1178,9 @@
                         inquiryPrompt: 'What does it mean that this law gave more visas to people from Britain and Germany than to people from Italy or Poland? What values does that reflect?',
                         sources: [
                             {
-                                title: 'US House History: Immigration Act of 1924',
+                                title: 'US House of Reps: The Immigration Act of 1924',
                                 url: 'https://history.house.gov/Historical-Highlights/1901-1950/The-Immigration-Act-of-1924/',
-                                type: 'US House History'
-                            },
-                            {
-                                title: 'Immigration Act of 1924 (Full Text, PDF)',
-                                url: 'https://www.govinfo.gov/content/pkg/STATUTE-43/pdf/STATUTE-43-Pg153.pdf',
-                                type: 'Government Document'
+                                type: 'Summary & Context'
                             }
                         ]
                     }
@@ -1173,25 +1194,14 @@
                     {
                         id: 'm1',
                         year: '1930s (Great Depression)',
-                        event: 'One of the most extensive mass expulsion campaigns in US history, on the premise that Mexican migrants and US-born Mexican Americans were responsible for significant aspects of the nation\'s economic miseries. By the late 1930s, 2 million people had been expelled to Mexico; up to 60% are estimated to have been US citizens.',
+                        event: 'One of the most extensive mass expulsion campaigns in US history, on the premise that Mexican migrants and US-born Mexican Americans were responsible for significant aspects of the nation\'s economic miseries. By the late 1930s, 2 million people had been expelled to Mexico; estimates suggest up to 60% were US citizens.',
                         annotation: 'Called "Mexican Repatriation," this campaign involved both formal deportations and coerced "voluntary" departures. Local governments, welfare agencies, and employers pressured Mexican families to leave, often with false promises of assistance.',
-                        nuanceNote: 'Estimates of citizenship vary due to poor record-keeping, but historians generally agree a significant portion were birthright citizens (Balderrama & Rodríguez).',
                         inquiryPrompt: 'How could up to 60% of people deported be U.S. citizens? What does this reveal about how citizenship was—or wasn\'t—protected?',
                         sources: [
                             {
-                                title: 'USCIS: INS Records for 1930s Mexican Repatriations',
+                                title: 'USCIS History: INS Records for 1930s Repatriations',
                                 url: 'https://www.uscis.gov/about-us/our-history/stories-from-the-archives/ins-records-for-1930s-mexican-repatriations',
-                                type: 'USCIS History'
-                            },
-                            {
-                                title: 'LOC Photographs: Mexican Repatriation',
-                                url: 'https://www.loc.gov/search/?q=mexican+repatriation+1930s&fa=original-format:photo,+print,+drawing',
-                                type: 'LOC Photos'
-                            },
-                            {
-                                title: 'Calisphere: Oral Histories',
-                                url: 'https://calisphere.org/search/?query=mexican+repatriation',
-                                type: 'Digital Collection'
+                                type: 'Government History'
                             }
                         ]
                     },
@@ -1203,17 +1213,12 @@
                         inquiryPrompt: 'Why would a legal guest worker program actually increase illegal immigration? What does this suggest about how migration works?',
                         sources: [
                             {
-                                title: 'LOC: Bracero Program Collection',
-                                url: 'https://www.loc.gov/collections/bracero-program/',
-                                type: 'LOC Collection'
-                            },
-                            {
-                                title: 'Bracero History Archive: Browse Oral Histories',
+                                title: 'Bracero History Archive: Oral Histories',
                                 url: 'https://braceroarchive.org/items/browse?collection=1',
                                 type: 'Digital Archive'
                             },
                             {
-                                title: 'Public Law 78 (1951)',
+                                title: 'Public Law 78 (1951) Full Text',
                                 url: 'https://www.govinfo.gov/content/pkg/STATUTE-65/pdf/STATUTE-65-Pg119.pdf',
                                 type: 'Government Document'
                             }
@@ -1227,14 +1232,9 @@
                         inquiryPrompt: 'If Operation Wetback reduced illegal immigration by expanding legal immigration, what does that tell us about why people migrate?',
                         sources: [
                             {
-                                title: 'Eisenhower Library: Operation Wetback',
+                                title: 'Operation Wetback Documents (Eisenhower Library)',
                                 url: 'https://www.eisenhowerlibrary.gov/research/online-documents/operation-wetback',
                                 type: 'Presidential Library'
-                            },
-                            {
-                                title: 'Chronicling America: Newspaper Coverage',
-                                url: 'https://chroniclingamerica.loc.gov/search/pages/results/?state=&date1=1954&date2=1954&proxtext=operation+wetback',
-                                type: 'Newspapers'
                             }
                         ]
                     },
@@ -1246,12 +1246,7 @@
                         inquiryPrompt: 'Why did ending a legal pathway for migration lead to more illegal immigration rather than less migration overall?',
                         sources: [
                             {
-                                title: 'Congressional Record: Bracero Hearings (1963-64)',
-                                url: 'https://www.congress.gov/search?q=%7B%22congress%22%3A88%2C%22source%22%3A%22legislation%22%7D',
-                                type: 'Congress.gov'
-                            },
-                            {
-                                title: 'LOC: Cesar Chavez and Farm Workers',
+                                title: 'Cesar Chavez and Farm Labor Movement',
                                 url: 'https://www.loc.gov/collections/farm-security-administration/articles-and-essays/cesar-chavez-and-the-farm-workers-movement/',
                                 type: 'LOC Article'
                             }
@@ -1265,19 +1260,9 @@
                         inquiryPrompt: 'How did a law meant to make immigration less racist actually create illegal immigration from Mexico and Latin America for the first time?',
                         sources: [
                             {
-                                title: 'LBJ Library: 1965 Immigration Act (with audio)',
+                                title: 'LBJ Presidential Library: 1965 Immigration Act',
                                 url: 'https://www.discoverlbj.org/item/tel-08973',
-                                type: 'Presidential Library'
-                            },
-                            {
-                                title: 'Immigration and Nationality Act of 1965',
-                                url: 'https://www.congress.gov/bill/89th-congress/house-bill/2580/text',
-                                type: 'Congress.gov'
-                            },
-                            {
-                                title: 'President Johnson\'s Signing Remarks',
-                                url: 'https://www.presidency.ucsb.edu/documents/remarks-the-signing-the-immigration-bill-liberty-island-new-york',
-                                type: 'Presidential Speech'
+                                type: 'Presidential Library (Audio & Text)'
                             }
                         ]
                     }
@@ -1296,7 +1281,7 @@
                         inquiryPrompt: 'What\'s the difference between a refugee (admitted abroad) and an asylum seeker (arrives first, applies later)? Why does the law treat them differently?',
                         sources: [
                             {
-                                title: 'Refugee Act of 1980 (Full Text)',
+                                title: 'Refugee Act of 1980 (Full Text, PDF)',
                                 url: 'https://www.govinfo.gov/content/pkg/STATUTE-94/pdf/STATUTE-94-Pg102.pdf',
                                 type: 'Government Document'
                             },
@@ -1315,14 +1300,9 @@
                         inquiryPrompt: 'Why would the U.S. deny asylum to people fleeing violence in countries the U.S. government supported? What role did politics play in asylum decisions?',
                         sources: [
                             {
-                                title: 'ABC v. Thornburgh Settlement',
-                                url: 'https://www.uscis.gov/sites/default/files/document/foia/ABC_Settlement_Agreement.pdf',
-                                type: 'Legal Document'
-                            },
-                            {
-                                title: 'Swarthmore: Sanctuary Movement Database',
+                                title: 'Global Nonviolent Action Database: Sanctuary Movement',
                                 url: 'https://nvdatabase.swarthmore.edu/content/us-religious-groups-provide-sanctuary-central-american-refugees-sanctuary-movement-1982-',
-                                type: 'Research Database'
+                                type: 'Database Entry'
                             }
                         ]
                     },
@@ -1334,12 +1314,7 @@
                         inquiryPrompt: 'How did making the border more dangerous actually increase the number of people staying permanently in the U.S.?',
                         sources: [
                             {
-                                title: 'Immigration Reform and Control Act of 1986',
-                                url: 'https://www.govinfo.gov/content/pkg/STATUTE-100/pdf/STATUTE-100-Pg3445.pdf',
-                                type: 'Government Document'
-                            },
-                            {
-                                title: 'Migration Policy Institute: IRCA Analysis',
+                                title: 'Migration Policy Institute: IRCA After 25 Years',
                                 url: 'https://www.migrationpolicy.org/research/us-immigration-policy-25-years-later',
                                 type: 'Policy Analysis'
                             }
@@ -1352,11 +1327,6 @@
                         annotation: 'This law created the H-1B visa for skilled workers, the diversity visa lottery, and Temporary Protected Status (TPS). TPS has been granted to nationals of countries facing war, environmental disaster, or other crises, allowing them to remain in the US temporarily.',
                         inquiryPrompt: 'Why would the U.S. create "temporary" protected status that has lasted decades for some countries? What makes protection temporary vs. permanent?',
                         sources: [
-                            {
-                                title: 'Immigration Act of 1990 (Full Text)',
-                                url: 'https://www.govinfo.gov/content/pkg/STATUTE-104/pdf/STATUTE-104-Pg4978.pdf',
-                                type: 'Government Document'
-                            },
                             {
                                 title: 'USCIS: Temporary Protected Status',
                                 url: 'https://www.uscis.gov/humanitarian/temporary-protected-status',
@@ -1372,12 +1342,7 @@
                         inquiryPrompt: 'What does it mean to be deported without a hearing? How does this change the role of courts and due process in immigration enforcement?',
                         sources: [
                             {
-                                title: 'IIRAIRA of 1996 (Full Text)',
-                                url: 'https://www.govinfo.gov/content/pkg/PLAW-104publ208/pdf/PLAW-104publ208.pdf',
-                                type: 'Government Document'
-                            },
-                            {
-                                title: 'Congressional Research Service: IIRAIRA',
+                                title: 'Congressional Research Service: IIRAIRA Analysis',
                                 url: 'https://crsreports.congress.gov/product/pdf/R/R43892',
                                 type: 'CRS Report'
                             }
@@ -1391,12 +1356,7 @@
                         inquiryPrompt: 'What does it mean to "externalize" border enforcement? How does having Mexico enforce U.S. immigration goals change migration patterns?',
                         sources: [
                             {
-                                title: 'CBP: Border Enforcement Data',
-                                url: 'https://www.cbp.gov/newsroom/stats/southwest-land-border-encounters',
-                                type: 'CBP Statistics'
-                            },
-                            {
-                                title: 'WOLA: Mexico\'s Southern Border Strategy',
+                                title: 'Mexico\'s Southern Border Strategy (WOLA Analysis)',
                                 url: 'https://www.wola.org/analysis/mexicos-southern-border-security/',
                                 type: 'Policy Analysis'
                             }
@@ -1410,9 +1370,9 @@
                         inquiryPrompt: 'Did building 700 miles of fence reduce unauthorized border crossings, or did it just change where and how people crossed?',
                         sources: [
                             {
-                                title: 'Secure Fence Act of 2006',
-                                url: 'https://www.govinfo.gov/content/pkg/PLAW-109publ367/pdf/PLAW-109publ367.pdf',
-                                type: 'Government Document'
+                                title: 'Congressional Debates on Border Security',
+                                url: 'https://www.congress.gov/congressional-record/2006/09/14/senate-section/article/S9485-3',
+                                type: 'Congressional Record'
                             }
                         ]
                     },
@@ -1424,14 +1384,9 @@
                         inquiryPrompt: 'Why would the law treat unaccompanied children from Mexico differently from those from Guatemala or Honduras?',
                         sources: [
                             {
-                                title: 'CRS: Unaccompanied Alien Children',
+                                title: 'Congressional Research Service: Unaccompanied Alien Children',
                                 url: 'https://crsreports.congress.gov/product/pdf/R/R43599',
                                 type: 'CRS Report'
-                            },
-                            {
-                                title: 'TVPRA of 2008 (Full Text)',
-                                url: 'https://www.govinfo.gov/content/pkg/PLAW-110publ457/pdf/PLAW-110publ457.pdf',
-                                type: 'Government Document'
                             }
                         ]
                     },
@@ -1443,12 +1398,7 @@
                         inquiryPrompt: 'How did U.S. border policies create conditions where cartels could prey on migrants? Who is responsible for migrant safety during the journey?',
                         sources: [
                             {
-                                title: 'BBC: San Fernando Massacre',
-                                url: 'https://www.bbc.com/news/world-latin-america-11107416',
-                                type: 'News Article'
-                            },
-                            {
-                                title: 'Human Rights Watch: Mexico Migrant Abuse',
+                                title: 'Human Rights Watch: Mexico\'s Migrant Crisis',
                                 url: 'https://www.hrw.org/news/2011/06/21/mexico-widespread-abuse-against-central-american-migrants',
                                 type: 'Human Rights Report'
                             }
@@ -1462,14 +1412,9 @@
                         inquiryPrompt: 'Why is DACA more vulnerable to being ended than a law passed by Congress? What\'s the difference between executive action and legislation?',
                         sources: [
                             {
-                                title: 'DHS: DACA Memo (2012)',
+                                title: 'DHS Memo: Exercising Prosecutorial Discretion (2012)',
                                 url: 'https://www.dhs.gov/xlibrary/assets/s1-exercising-prosecutorial-discretion-individuals-who-came-to-us-as-children.pdf',
                                 type: 'DHS Document'
-                            },
-                            {
-                                title: 'USCIS: DACA Information',
-                                url: 'https://www.uscis.gov/DACA',
-                                type: 'USCIS Info'
                             }
                         ]
                     },
@@ -1481,14 +1426,9 @@
                         inquiryPrompt: 'What happens when a family\'s asylum case takes longer than 20 days to decide? How does the Flores rule affect enforcement policy?',
                         sources: [
                             {
-                                title: 'Human Rights First: Flores Fact Sheet',
+                                title: 'Human Rights First: The Flores Settlement',
                                 url: 'https://humanrightsfirst.org/library/fact-sheet-flores-settlement-agreement/',
                                 type: 'Fact Sheet'
-                            },
-                            {
-                                title: 'ACLU: Flores Settlement (1997)',
-                                url: 'https://www.aclu.org/legal-document/flores-v-reno-settlement-agreement',
-                                type: 'Legal Document'
                             }
                         ]
                     },
@@ -1500,14 +1440,9 @@
                         inquiryPrompt: 'Can public health emergencies override the right to seek asylum? Where should the line be between public health and refugee protection?',
                         sources: [
                             {
-                                title: 'CDC Title 42 Archive (Internet Archive)',
-                                url: 'https://web.archive.org/web/20230515000000*/https://www.cdc.gov/coronavirus/2019-ncov/cdcresponse/index.html',
-                                type: 'Archived Docs'
-                            },
-                            {
-                                title: 'CRS: Title 42 Expulsions Report',
+                                title: 'Congressional Research Service: Title 42 Expulsions',
                                 url: 'https://crsreports.congress.gov/product/pdf/R/R46994',
-                                type: 'Analysis'
+                                type: 'CRS Report'
                             }
                         ]
                     }
@@ -1525,37 +1460,6 @@
 
         let expandedEntries = new Set();
         let activeSection = 'all';
-
-        // FEATURE: localStorage autosave
-        function setupAutosave() {
-            const inputs = document.querySelectorAll('textarea');
-            const saveStatus = document.getElementById('saveStatus');
-            
-            // Load saved data on page load
-            inputs.forEach((input) => {
-                const savedValue = localStorage.getItem(`dt_${input.id}`);
-                if (savedValue) {
-                    input.value = savedValue;
-                }
-                
-                // Save on input (debounced)
-                let saveTimeout;
-                input.addEventListener('input', () => {
-                    clearTimeout(saveTimeout);
-                    saveTimeout = setTimeout(() => {
-                        localStorage.setItem(`dt_${input.id}`, input.value);
-                        
-                        // Visual feedback
-                        if (saveStatus) {
-                            saveStatus.textContent = '✓ Auto-saved';
-                            setTimeout(() => {
-                                saveStatus.textContent = '';
-                            }, 2000);
-                        }
-                    }, 500); // Save 500ms after user stops typing
-                });
-            });
-        }
 
         // Render functions
         function renderSources(sources) {
@@ -1587,7 +1491,7 @@
         function renderEntry(entry) {
             const isExpanded = expandedEntries.has(entry.id);
             const toggleIcon = isExpanded ? icons.chevronUp : icons.chevronDown;
-            const detailsId = `entry-details-${entry.id}`;
+            const ariaExpanded = isExpanded ? 'true' : 'false';
             
             return `
                 <div class="entry">
@@ -1596,21 +1500,18 @@
                             <span class="entry-year">${entry.year}</span>
                             <button class="toggle-btn" 
                                     data-entry-id="${entry.id}" 
-                                    aria-expanded="${isExpanded}"
-                                    aria-controls="${detailsId}">
+                                    aria-expanded="${ariaExpanded}"
+                                    aria-controls="details-${entry.id}">
                                 <span>${isExpanded ? 'Hide' : 'View'} Context</span>
                                 ${toggleIcon}
                             </button>
                         </div>
                         <p class="entry-event">${entry.event}</p>
-                        <div id="${detailsId}" class="entry-details ${isExpanded ? 'visible' : ''}">
+                        <div id="details-${entry.id}" class="entry-details ${isExpanded ? 'visible' : ''}">
                             ${entry.annotation ? `
                                 <div class="annotation">
                                     <p>${entry.annotation}</p>
                                 </div>
-                            ` : ''}
-                            ${entry.nuanceNote ? `
-                                <div class="nuance-note">${entry.nuanceNote}</div>
                             ` : ''}
                             ${entry.inquiryPrompt ? `
                                 <div class="inquiry">
@@ -1655,11 +1556,13 @@
                 btn.addEventListener('click', handleToggle);
             });
             
-            // Add staggered animation delays to entries
-            const entries = document.querySelectorAll('.entry-card');
-            entries.forEach((entry, index) => {
-                entry.style.animationDelay = `${index * 0.05}s`;
-            });
+            // Add staggered animation delays to entries (only if not printing)
+            if (typeof window.matchMedia !== 'undefined' && !window.matchMedia('print').matches) {
+                const entries = document.querySelectorAll('.entry-card');
+                entries.forEach((entry, index) => {
+                    entry.style.animationDelay = `${index * 0.05}s`;
+                });
+            }
         }
 
         function handleToggle(e) {
@@ -1683,19 +1586,48 @@
             // Update active filter
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.classList.remove('active');
-                btn.setAttribute('aria-pressed', 'false');
             });
             e.target.classList.add('active');
-            e.target.setAttribute('aria-pressed', 'true');
             
             activeSection = e.target.dataset.section;
             renderTimeline();
         }
 
+        // localStorage Autosave Function
+        function setupAutosave() {
+            const inputs = document.querySelectorAll('textarea');
+            const saveStatus = document.getElementById('saveStatus');
+            
+            // Load saved data on page load
+            inputs.forEach((input) => {
+                const savedValue = localStorage.getItem(`dt_${input.id}`);
+                if (savedValue) {
+                    input.value = savedValue;
+                }
+                
+                // Save on input (debounced)
+                let saveTimeout;
+                input.addEventListener('input', () => {
+                    clearTimeout(saveTimeout);
+                    saveTimeout = setTimeout(() => {
+                        localStorage.setItem(`dt_${input.id}`, input.value);
+                        
+                        // Visual feedback
+                        if (saveStatus) {
+                            saveStatus.textContent = '✓ Auto-saved';
+                            setTimeout(() => {
+                                saveStatus.textContent = '';
+                            }, 2000);
+                        }
+                    }, 500);
+                });
+            });
+        }
+
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             renderTimeline();
-            setupAutosave(); // NEW: Auto-save feature
+            setupAutosave(); // Enable localStorage autosave
             
             // Attach filter event listeners
             document.querySelector('.filters').addEventListener('click', handleFilterClick);
