@@ -45,9 +45,12 @@
         }
         
         .deportation-timeline-container .dt-container {
-            max-width: 1024px;
-            margin: 0 auto;
-            padding: 3rem 1.5rem;
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 3rem 2.5rem;
+            background: #fffdf7;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
         }
         
         /* Header */
@@ -680,6 +683,26 @@
         .deportation-timeline-container .prompt em {
             font-style: italic;
         }
+
+        .deportation-timeline-container .reflection-textarea {
+            width: 100%;
+            min-height: 80px;
+            margin-top: 0.75rem;
+            padding: 0.5rem;
+            border: 1px solid #d8b4fe;
+            border-radius: 0.25rem;
+            font-family: 'Spectral', Georgia, serif;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            resize: vertical;
+            color: #3b0764;
+            background: #fdf4ff;
+        }
+
+        .deportation-timeline-container .reflection-textarea:focus {
+            outline: 2px solid #9333ea;
+            outline-offset: 2px;
+        }
         
         /* Footer */
         .deportation-timeline-container footer {
@@ -766,7 +789,10 @@
         /* Responsive */
         @media (max-width: 640px) {
             .deportation-timeline-container .dt-container {
-                padding: 2rem 1rem;
+                padding: 1.5rem 1rem;
+                margin: 0;
+                border-radius: 0;
+                box-shadow: none;
             }
             
             .deportation-timeline-container header h1 {
@@ -798,8 +824,8 @@
             }
         }
         
-        /* Print styles — only applies if user prints the main page directly via browser.
-           The Print button uses printStudentWork() which opens a clean popup instead. */
+        /* Print styles — fallback if user uses browser Cmd+P directly.
+           The Print button uses printStudentWork() which opens a clean popup. */
         @media print {
             .deportation-timeline-container header,
             .deportation-timeline-container .i-can-statement,
@@ -816,6 +842,9 @@
                 max-width: 100%;
                 padding: 0;
                 margin: 0;
+                box-shadow: none;
+                border-radius: 0;
+                background: white;
             }
 
             .deportation-timeline-container .question-tracker,
@@ -827,25 +856,26 @@
             }
 
             .deportation-timeline-container .question-item textarea,
-            .deportation-timeline-container .notes-area textarea {
-                border: none;
-                border-bottom: 1px solid #999;
+            .deportation-timeline-container .notes-area textarea,
+            .deportation-timeline-container .reflection-textarea {
+                border: 1px solid #999;
                 resize: none;
-                min-height: 2rem;
+                min-height: 80px;
                 color: black;
+                background: white;
                 font-family: serif;
                 width: 100%;
             }
 
-            .deportation-timeline-container .question-item {
+            .deportation-timeline-container .prompt {
+                border: none;
+                background: white;
+                border-bottom: 1px solid #ddd;
+                padding: 0.5rem 0;
                 page-break-inside: avoid;
             }
 
-            .deportation-timeline-container .prompt {
-                border: none;
-                border-bottom: 1px solid #ddd;
-                background: white;
-                padding: 0.5rem 0;
+            .deportation-timeline-container .question-item {
                 page-break-inside: avoid;
             }
         }
@@ -986,18 +1016,23 @@
             <div class="reflection-prompts">
                 <div class="prompt">
                     <strong>1. Which of your questions were you able to answer using the timeline? What specific evidence did you find? Which questions require more research?
+                    <textarea id="r1" class="reflection-textarea" placeholder="Write your response here..."></textarea>
                 </div>
                 <div class="prompt">
                     <strong>2.Identify at least two examples from the timeline where U.S. policy <em>limited</em> immigration and two examples where it <em>allowed</em> or created pathways for immigration. What patterns do you notice?
+                    <textarea id="r2" class="reflection-textarea" placeholder="Write your response here..."></textarea>
                 </div>
                 <div class="prompt">
                     <strong>3. Find one example where an immigration policy had effects that were different from what policymakers intended. What does this reveal about the complexity of immigration policy?
+                    <textarea id="r3" class="reflection-textarea" placeholder="Write your response here..."></textarea>
                 </div>
                 <div class="prompt">
                     <strong>4. Based on the historical evidence you've explored, what is one change you think should be made to current U.S. immigration policy? What historical facts support your position? What might critics of your position argue?
+                    <textarea id="r4" class="reflection-textarea" placeholder="Write your response here..."></textarea>
                 </div>
                 <div class="prompt">
                     <strong>5. What new questions emerged as you explored the timeline? If you were to research one question further, what primary sources would you need to consult?
+                    <textarea id="r5" class="reflection-textarea" placeholder="Write your response here..."></textarea>
                 </div>
             </div>
         </div>
@@ -1587,175 +1622,93 @@
             });
         }
 
-        // Custom print function — outputs only student work, not the full timeline
+        // Custom print function — outputs only student work in a clean popup
         function printStudentWork() {
-            const q1    = document.getElementById('q1').value.trim();
-            const q2    = document.getElementById('q2').value.trim();
-            const q3    = document.getElementById('q3').value.trim();
-            const notes = document.getElementById('notes').value.trim();
-
-            // Format a textarea value for print: preserve line breaks, show placeholder if empty
-            function fmt(val, placeholder) {
-                if (!val) return `<span class="empty">${placeholder}</span>`;
-                return val.replace(/\n/g, '<br>');
+            function val(id) { const el = document.getElementById(id); return el ? el.value.trim() : ''; }
+            function fmt(v, placeholder) {
+                if (!v) return `<span class="empty">${placeholder}</span>`;
+                return v.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
             }
 
             const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Student Work — History of Deportation</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: Georgia, serif;
-            font-size: 11pt;
-            color: #111;
-            padding: 0.75in 1in;
-            line-height: 1.5;
-        }
-        .doc-title {
-            font-size: 15pt;
-            font-weight: bold;
-            margin-bottom: 0.15in;
-        }
-        .doc-subtitle {
-            font-size: 9pt;
-            color: #555;
-            margin-bottom: 0.35in;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 0.15in;
-        }
-        .meta-row {
-            display: flex;
-            gap: 1.5in;
-            margin-bottom: 0.35in;
-        }
-        .meta-field {
-            flex: 1;
-            border-bottom: 1px solid #aaa;
-            padding-bottom: 2px;
-            font-size: 10pt;
-        }
-        .meta-field span {
-            font-size: 8pt;
-            color: #777;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            margin-right: 0.3em;
-        }
-        section {
-            margin-bottom: 0.35in;
-        }
-        section h2 {
-            font-size: 11pt;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: #333;
-            border-bottom: 1.5px solid #333;
-            padding-bottom: 3px;
-            margin-bottom: 0.15in;
-        }
-        .field-label {
-            font-size: 9pt;
-            font-weight: bold;
-            color: #444;
-            margin-bottom: 4px;
-        }
-        .field-value {
-            min-height: 0.4in;
-            border-bottom: 1px solid #bbb;
-            padding: 4px 0 6px 0;
-            font-size: 11pt;
-            margin-bottom: 0.2in;
-        }
-        .field-value.tall {
-            min-height: 1.2in;
-        }
-        .empty {
-            color: #bbb;
-            font-style: italic;
-        }
-        .prompt-block {
-            margin-bottom: 0.25in;
-            page-break-inside: avoid;
-        }
-        .prompt-text {
-            margin-bottom: 6px;
-            font-size: 10.5pt;
-        }
-        .write-lines {
-            border-bottom: 1px solid #ccc;
-            height: 0.28in;
-            margin-bottom: 5px;
-        }
-        @media print {
-            body { padding: 0.5in 0.75in; }
-            a { text-decoration: none; color: inherit; }
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Student Work — History of Deportation</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Georgia, serif; font-size: 11pt; color: #111; padding: 0.65in 0.9in; line-height: 1.5; }
+.doc-title { font-size: 14pt; font-weight: bold; margin-bottom: 0.1in; }
+.doc-sub { font-size: 9pt; color: #555; border-bottom: 1px solid #ccc; padding-bottom: 0.12in; margin-bottom: 0.3in; }
+.meta { display: flex; gap: 1in; margin-bottom: 0.3in; }
+.meta-field { flex: 1; border-bottom: 1px solid #aaa; padding-bottom: 2px; font-size: 9.5pt; }
+.meta-field span { font-size: 8pt; color: #777; text-transform: uppercase; letter-spacing: 0.04em; margin-right: 0.25em; }
+section { margin-bottom: 0.3in; }
+h2 { font-size: 10pt; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em; color: #333; border-bottom: 1.5px solid #333; padding-bottom: 3px; margin-bottom: 0.15in; }
+.field-label { font-size: 8.5pt; font-weight: bold; color: #444; margin-bottom: 3px; }
+.field-value { min-height: 0.45in; border-bottom: 1px solid #bbb; padding: 3px 0 5px; font-size: 11pt; margin-bottom: 0.18in; }
+.field-value.tall { min-height: 1.1in; }
+.empty { color: #bbb; font-style: italic; }
+.prompt-block { margin-bottom: 0.22in; page-break-inside: avoid; }
+.prompt-text { font-size: 10.5pt; margin-bottom: 5px; }
+.response { min-height: 0.6in; border-bottom: 1px solid #bbb; padding: 3px 0 5px; font-size: 11pt; }
+.response.empty { color: #bbb; font-style: italic; min-height: 0.9in; }
+@media print { body { padding: 0.45in 0.7in; } }
+</style>
 </head>
 <body>
-    <div class="doc-title">History of Deportation in the United States</div>
-    <div class="doc-subtitle">Student Work Sheet &nbsp;|&nbsp; American Historical Association Congressional Briefing, March 2025</div>
+<div class="doc-title">History of Deportation in the United States</div>
+<div class="doc-sub">Student Work Sheet &nbsp;|&nbsp; AHA Congressional Briefing, March 2025</div>
+<div class="meta">
+    <div class="meta-field"><span>Names:</span>&nbsp;</div>
+    <div class="meta-field"><span>Date:</span>&nbsp;</div>
+    <div class="meta-field"><span>Period / Class:</span>&nbsp;</div>
+</div>
 
-    <div class="meta-row">
-        <div class="meta-field"><span>Names:</span>&nbsp;</div>
-        <div class="meta-field"><span>Date:</span>&nbsp;</div>
-        <div class="meta-field"><span>Period/Class:</span>&nbsp;</div>
-    </div>
+<section>
+<h2>Part 1 — Priority Questions</h2>
+<div class="field-label">Priority Question #1</div>
+<div class="field-value">${fmt(val('q1'),'Not answered')}</div>
+<div class="field-label">Priority Question #2</div>
+<div class="field-value">${fmt(val('q2'),'Not answered')}</div>
+<div class="field-label">Priority Question #3</div>
+<div class="field-value">${fmt(val('q3'),'Not answered')}</div>
+</section>
 
-    <section>
-        <h2>Part 1 &mdash; Priority Questions</h2>
-        <div class="field-label">Priority Question #1</div>
-        <div class="field-value">${fmt(q1, 'Not answered')}</div>
-        <div class="field-label">Priority Question #2</div>
-        <div class="field-value">${fmt(q2, 'Not answered')}</div>
-        <div class="field-label">Priority Question #3</div>
-        <div class="field-value">${fmt(q3, 'Not answered')}</div>
-    </section>
+<section>
+<h2>Notes &amp; Evidence from the Timeline</h2>
+<div class="field-value tall">${fmt(val('notes'),'No notes recorded')}</div>
+</section>
 
-    <section>
-        <h2>Notes &amp; Evidence from the Timeline</h2>
-        <div class="field-value tall">${fmt(notes, 'No notes recorded')}</div>
-    </section>
-
-    <section>
-        <h2>Part 3 &mdash; Reflection</h2>
-
-        <div class="prompt-block">
-            <div class="prompt-text"><strong>1.</strong> Which of your questions were you able to answer using the timeline? What specific evidence did you find? Which questions require more research?</div>
-            <div class="write-lines"></div><div class="write-lines"></div><div class="write-lines"></div>
-        </div>
-
-        <div class="prompt-block">
-            <div class="prompt-text"><strong>2.</strong> Identify at least two examples from the timeline where U.S. policy <em>limited</em> immigration and two where it <em>allowed</em> or created pathways. What patterns do you notice?</div>
-            <div class="write-lines"></div><div class="write-lines"></div><div class="write-lines"></div>
-        </div>
-
-        <div class="prompt-block">
-            <div class="prompt-text"><strong>3.</strong> Find one example where an immigration policy had effects different from what policymakers intended. What does this reveal about the complexity of immigration policy?</div>
-            <div class="write-lines"></div><div class="write-lines"></div><div class="write-lines"></div>
-        </div>
-
-        <div class="prompt-block">
-            <div class="prompt-text"><strong>4.</strong> Based on the historical evidence you've explored, what is one change you think should be made to current U.S. immigration policy? What historical facts support your position? What might critics argue? What, if anything, is substantially different in the present day?</div>
-            <div class="write-lines"></div><div class="write-lines"></div><div class="write-lines"></div><div class="write-lines"></div>
-        </div>
-
-        <div class="prompt-block">
-            <div class="prompt-text"><strong>5.</strong> What new questions emerged as you explored the timeline? If you were to research one further, what kinds of sources would you need — primary, secondary, data — and where would you look?</div>
-            <div class="write-lines"></div><div class="write-lines"></div><div class="write-lines"></div>
-        </div>
-    </section>
+<section>
+<h2>Part 3 — Reflection</h2>
+<div class="prompt-block">
+<div class="prompt-text"><strong>1.</strong> Which of your questions were you able to answer using the timeline? What specific evidence did you find? Which questions require more research?</div>
+<div class="response ${val('r1') ? '' : 'empty'}">${fmt(val('r1'),'No response recorded')}</div>
+</div>
+<div class="prompt-block">
+<div class="prompt-text"><strong>2.</strong> Identify at least two examples from the timeline where U.S. policy <em>limited</em> immigration and two where it <em>allowed</em> or created pathways. What patterns do you notice?</div>
+<div class="response ${val('r2') ? '' : 'empty'}">${fmt(val('r2'),'No response recorded')}</div>
+</div>
+<div class="prompt-block">
+<div class="prompt-text"><strong>3.</strong> Find one example where an immigration policy had effects different from what policymakers intended. What does this reveal about the complexity of immigration policy?</div>
+<div class="response ${val('r3') ? '' : 'empty'}">${fmt(val('r3'),'No response recorded')}</div>
+</div>
+<div class="prompt-block">
+<div class="prompt-text"><strong>4.</strong> Based on the historical evidence you've explored, what is one change you think should be made to current U.S. immigration policy? What historical facts support your position? What might critics argue?</div>
+<div class="response ${val('r4') ? '' : 'empty'}">${fmt(val('r4'),'No response recorded')}</div>
+</div>
+<div class="prompt-block">
+<div class="prompt-text"><strong>5.</strong> What new questions emerged as you explored the timeline? If you were to research one further, what primary sources would you need to consult?</div>
+<div class="response ${val('r5') ? '' : 'empty'}">${fmt(val('r5'),'No response recorded')}</div>
+</div>
+</section>
 </body>
 </html>`;
 
-            const pw = window.open('', '_blank', 'width=850,height=1100');
+            const pw = window.open('', '_blank', 'width=860,height=1100');
             pw.document.write(html);
             pw.document.close();
-            // Small delay so fonts/layout settle before the print dialog
             pw.addEventListener('load', () => setTimeout(() => pw.print(), 250));
         }
 
