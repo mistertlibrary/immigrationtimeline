@@ -455,19 +455,7 @@
         
         .deportation-timeline-container .entry-card:hover {
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-        
-        .deportation-timeline-container .entry-card:hover::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -6px;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: #f59e0b;
-            animation: dt-pulse 1.5s infinite;
-            pointer-events: none;
+            border-left: 3px solid #d97706;
         }
         
         .deportation-timeline-container .entry-header {
@@ -519,8 +507,6 @@
         .deportation-timeline-container .entry-details {
             display: none;
             animation: dt-fadeIn 0.3s ease-out;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
         }
         
         .deportation-timeline-container .entry-details.visible {
@@ -886,7 +872,7 @@
         <div class="i-can-statement">
             <div class="i-can-content">
                 <h3>Learning Goal</h3>
-                <p><strong>I can</strong> explain how U.S. immigration policy both limits and allows immigration through mechanisms like border enforcement, visas, and refugee programs, and use these facts to support my own opinion about U.S. immigration policy today.</p>
+                <p><strong>I can</strong> explain how U.S. immigration policy both limits and allows immigration through things like border enforcement, visas, and refugee programs, and use these facts to support my own opinion about what should change.</p>
             </div>
         </div>
 
@@ -894,22 +880,23 @@
             <h2>Part 1: Generate Your Questions</h2>
             
             <p>
-                U.S. immigration policy is a two-sided system: it creates pathways for people to enter legally (like visas, refugee programs, and citizenship) while also enforcing limits through deportation, border control, and exclusion. To understand this system, you'll start by generating your own questions about one aspect of this history.
+                U.S. immigration policy is a system with two sides: it creates pathways for people to enter legally (like visas, refugee programs, and citizenship) while also enforcing limits through deportation, border control, and exclusion. To understand this system, you'll start by generating your own questions about one aspect of this history.
             </p>
             
             <div class="qfocus-statement">
                 <strong>Question Focus:</strong><br>
-                In 2025, interior deportations more than quadrupled to their highest level in decades. ICE detention reached a record 73,000 people—84% higher than the previous year. Although being undocumented in the US is a civil not a criminal infraction, immigrants with no criminal record continue to make up the largest group in US immigration detention. The Trump administration has also moved to invalidate protections for many immigrants staying in the US legally.
+                "In 2025, interior deportations more than quadrupled to their highest level in decades. ICE detention reached a record 73,000 people—84% higher than the previous year."
             </div>
             
             <div class="qft-steps">
                 <div class="qft-step">
                     <h3>Step 1: Produce Questions</h3>
-                    <p>In your small group, follow these instructions:</p>
+                    <p>In your small group, follow these rules:</p>
                     <ul>
                         <li>Ask as many questions as you can about the Question Focus</li>
                         <li>Do not stop to discuss, judge, or answer any question</li>
                         <li>Write down every question exactly as it is stated</li>
+                        <li>Change any statements into questions</li>
                     </ul>
                 </div>
                 
@@ -917,9 +904,8 @@
                     <h3>Step 2: Improve Your Questions</h3>
                     <p>Complete these steps with your group:</p>
                     <ul>
-                        <li>Change any statements into questions</li>
                         <li>Mark each question as closed-ended (C) or open-ended (O). What are the advantages and disadvantages of each type?</li>
-                        <li>Practice changing questions from one type to another</li>
+                        <li>Practice changing questions from one type to the other</li>
                         <li>Select at least 2 questions to revise and improve</li>
                     </ul>
                 </div>
@@ -952,28 +938,23 @@
     <h3>Our Group's Priority Questions</h3>
     <div class="question-list">
         <div class="question-item">
-            <label>Priority Question #1:</label>
+            <label for="q1">Priority Question #1:</label>
             <textarea id="q1" placeholder="Type your group's first priority question here..."></textarea>
         </div>
         <div class="question-item">
-            <label>Priority Question #2:</label>
+            <label for="q2">Priority Question #2:</label>
             <textarea id="q2" placeholder="Type your group's second priority question here..."></textarea>
         </div>
         <div class="question-item">
-            <label>Priority Question #3:</label>
+            <label for="q3">Priority Question #3:</label>
             <textarea id="q3" placeholder="Type your group's third priority question here..."></textarea>
         </div>
     </div>
     <div class="notes-area">
-        <label>Notes & Evidence from the Timeline:</label>
+        <label for="notes">Notes &amp; Evidence from the Timeline:</label>
         <textarea id="notes" placeholder="As you explore the timeline, record important findings..."></textarea>
     </div>
 </div>
-            <div class="notes-area">
-                <label>Notes & Evidence from the Timeline:</label>
-                <textarea placeholder="As you explore the timeline, record important findings, surprising information, and evidence related to your questions."></textarea>
-            </div>
-        </div>
 
         <div class="timeline-instructions">
             <h2>Part 2: Investigate Using the Timeline</h2>
@@ -981,18 +962,18 @@
             <p><strong>How To Do It</strong></p>
             <ul>
                 <li>Click "View Context" on timeline entries related to your questions</li>
-                <li>Follow the links to examine relevant documents</li>
+                <li>Follow primary source links to examine original documents</li>
                 <li>Take notes in the tracker above on evidence that addresses your questions</li>
-                <li>Notice patterns! Which groups were targeted for exclusion? When, why, and how did the U.S. create pathways for legal entry?</li>
-                <li>Generate new questions as you learn more</li>
+                <li>Notice patterns! Which groups were targeted for exclusion? When did the U.S. create pathways for legal entry?</li>
+                <li>Generate new questions as you discover surprising information</li>
             </ul>
         </div>
 
         <div class="filters">
-            <button class="filter-btn active" data-section="all">All Periods</button>
-            <button class="filter-btn" data-section="foundations">Foundations (pre-1930)</button>
-            <button class="filter-btn" data-section="midcentury">Mid-Century (1930s-80s)</button>
-            <button class="filter-btn" data-section="modern">Modern Era (1980-present)</button>
+            <button class="filter-btn active" data-section="all" aria-pressed="true">All Periods</button>
+            <button class="filter-btn" data-section="foundations" aria-pressed="false">Foundations (pre-1930)</button>
+            <button class="filter-btn" data-section="midcentury" aria-pressed="false">Mid-Century (1930s-80s)</button>
+            <button class="filter-btn" data-section="modern" aria-pressed="false">Modern Era (1980-present)</button>
         </div>
 
         <div id="timeline-content"></div>
@@ -1001,19 +982,19 @@
             <h2>Part 3: Reflection</h2>
             <div class="reflection-prompts">
                 <div class="prompt">
-                    <strong>1. Which of your questions were you able to answer using the timeline? What specific evidence did you find? Which questions require more research?
+                    <strong>1.</strong> Which of your questions were you able to answer using the timeline? What specific evidence did you find? Which questions require more research?
                 </div>
                 <div class="prompt">
-                    <strong>2.Identify at least two examples from the timeline where U.S. policy <em>limited</em> immigration and two examples where it <em>allowed</em> or created pathways for immigration. What patterns do you notice?
+                    <strong>2.</strong> Identify at least two examples from the timeline where U.S. policy <em>limited</em> immigration and two examples where it <em>allowed</em> or created pathways for immigration. What patterns do you notice?
                 </div>
                 <div class="prompt">
-                    <strong>3. Find one example where an immigration policy had effects that were different from what policymakers intended. What does this reveal about the complexity of immigration policy?
+                    <strong>3.</strong> Find one example where an immigration policy had effects that were different from what policymakers intended. What does this reveal about the complexity of immigration policy?
                 </div>
                 <div class="prompt">
-                    <strong>4. Based on the historical evidence you've explored, what is one change you think should be made to current U.S. immigration policy? What historical facts support your position? What might critics of your position argue? What, if anything, is substantially different in the present day?
+                    <strong>4.</strong> Based on the historical evidence you've explored, what is one change you think should be made to current U.S. immigration policy? What historical facts support your position? What might critics of your position argue? What, if anything, is substantially different in the present day?
                 </div>
                 <div class="prompt">
-                    <strong>5. What new questions emerged as you explored the timeline? If you were to research one question further, what sort of sources would you need to consult?
+                    <strong>5.</strong> What new questions emerged as you explored the timeline? If you were to research one further, what kinds of sources would you need to consult — primary, secondary, data — and where would you look for them?
                 </div>
             </div>
         </div>
@@ -1033,7 +1014,13 @@
                         event: 'Colonial Massachusetts law authorized towns to remove poor people who had no legal settlement in the town.',
                         annotation: 'This represents one of the earliest forms of exclusion based on economic status in colonial America. The concept of "legal settlement" tied mobility rights to property and community membership.',
                         inquiryPrompt: 'Why did colonial communities link the right to stay in a place with property ownership?',
-                        sources: []
+                        sources: [
+                            {
+                                title: 'Hidetaka Hirota: Expelling the Poor — The Antebellum Origins of American Deportation Policy (Gilder Lehrman)',
+                                url: 'https://www.gilderlehrman.org/history-resources/essays/expelling-poor-antebellum-origins-american-deportation-policy',
+                                type: 'Scholarly Essay'
+                            }
+                        ]
                     },
                     {
                         id: 'f2',
@@ -1041,7 +1028,13 @@
                         event: 'Colonial New York law authorized local officials to send transient beggars to "the country from whence they came."',
                         annotation: 'Early deportation laws focused on economic dependency rather than nationality. The phrase "country from whence they came" suggests removal could be international, not just between colonies.',
                         inquiryPrompt: 'How does this early focus on poverty shape our understanding of what deportation was originally meant to do?',
-                        sources: []
+                        sources: [
+                            {
+                                title: 'Hidetaka Hirota: Expelling the Poor — The Antebellum Origins of American Deportation Policy (Gilder Lehrman)',
+                                url: 'https://www.gilderlehrman.org/history-resources/essays/expelling-poor-antebellum-origins-american-deportation-policy',
+                                type: 'Scholarly Essay'
+                            }
+                        ]
                     },
                     {
                         id: 'f3',
@@ -1049,7 +1042,13 @@
                         event: 'Massachusetts state law allowed for the expulsion of any pauper without legal settlement in the state to "any other State, or to any place beyond [the] sea where he belongs."',
                         annotation: 'Post-Revolutionary state laws continued colonial practices of removing the poor. Note the expanded scope to include deportation "beyond sea," foreshadowing federal-level international deportation.',
                         inquiryPrompt: 'What does the phrase "beyond the sea" tell us about who early Americans thought belonged in the country?',
-                        sources: []
+                        sources: [
+                            {
+                                title: 'Hidetaka Hirota: Expelling the Poor — The Antebellum Origins of American Deportation Policy (Gilder Lehrman)',
+                                url: 'https://www.gilderlehrman.org/history-resources/essays/expelling-poor-antebellum-origins-american-deportation-policy',
+                                type: 'Scholarly Essay'
+                            }
+                        ]
                     },
                     {
                         id: 'f4',
@@ -1173,8 +1172,8 @@
                     {
                         id: 'm1',
                         year: '1930s (Great Depression)',
-                        event: 'One of the most extensive mass expulsion campaigns in US history, on the premise that Mexican migrants and US-born Mexican Americans were responsible for significant aspects of the nation\'s economic miseries. By the late 1930s, 2 million people had been expelled to Mexico; estimates suggest up to 60% were US citizens.',
-                        annotation: 'Called "Mexican Repatriation," this campaign involved both formal deportations and coerced "voluntary" departures. Local governments, welfare agencies, and employers pressured Mexican families to leave, often with false promises of assistance.',
+                        event: 'One of the most extensive mass expulsion campaigns in US history, on the premise that Mexican migrants and US-born Mexican Americans were responsible for significant aspects of the nation\'s economic miseries. By the late 1930s, 2 million people had been expelled to Mexico; estimates suggest up to 60% may have been US citizens.',
+                        annotation: 'Called "Mexican Repatriation," this campaign involved both formal deportations and coerced "voluntary" departures. Local governments, welfare agencies, and employers pressured Mexican families to leave, often with false promises of assistance. Because so many departures were recorded as "voluntary," exact figures are difficult to verify — the uncertainty itself is part of the historical record.',
                         inquiryPrompt: 'How could up to 60% of people deported be U.S. citizens? What does this reveal about how citizenship was—or wasn\'t—protected?',
                         sources: [
                             {
@@ -1565,8 +1564,10 @@
             // Update active filter
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.classList.remove('active');
+                btn.setAttribute('aria-pressed', 'false');
             });
             e.target.classList.add('active');
+            e.target.setAttribute('aria-pressed', 'true');
             
             activeSection = e.target.dataset.section;
             renderTimeline();
