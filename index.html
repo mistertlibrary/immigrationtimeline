@@ -17,6 +17,7 @@
             line-height: 1.6;
             color: #1c1917;
             scroll-behavior: smooth;
+            padding: 1.5rem;
         }
         
         .deportation-timeline-container *,
@@ -50,7 +51,7 @@
             padding: 3rem 2.5rem;
             background: #fffdf7;
             border-radius: 0.75rem;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
         }
         
         /* Header */
@@ -685,6 +686,7 @@
         }
 
         .deportation-timeline-container .reflection-textarea {
+            display: block;
             width: 100%;
             min-height: 80px;
             margin-top: 0.75rem;
@@ -789,10 +791,7 @@
         /* Responsive */
         @media (max-width: 640px) {
             .deportation-timeline-container .dt-container {
-                padding: 1.5rem 1rem;
-                margin: 0;
-                border-radius: 0;
-                box-shadow: none;
+                padding: 2rem 1rem;
             }
             
             .deportation-timeline-container header h1 {
@@ -824,57 +823,69 @@
             }
         }
         
-        /* Print styles — fallback if user uses browser Cmd+P directly.
-           The Print button uses printStudentWork() which opens a clean popup. */
+        /* Print Friendly Styles */
         @media print {
-            .deportation-timeline-container header,
-            .deportation-timeline-container .i-can-statement,
-            .deportation-timeline-container .qft-opener,
-            .deportation-timeline-container .print-actions,
-            .deportation-timeline-container .timeline-instructions,
-            .deportation-timeline-container .filters,
-            .deportation-timeline-container #timeline-content,
-            .deportation-timeline-container footer {
-                display: none !important;
-            }
-
             .deportation-timeline-container .dt-container {
                 max-width: 100%;
                 padding: 0;
                 margin: 0;
+            }
+            
+            /* Hide interactive elements */
+            .deportation-timeline-container .filters,
+            .deportation-timeline-container .toggle-btn,
+            .deportation-timeline-container footer,
+            .deportation-timeline-container .print-actions,
+            .deportation-timeline-container .qft-steps {
+                display: none !important;
+            }
+
+            /* Expand all details */
+            .deportation-timeline-container .entry-details {
+                display: block !important;
+                max-height: none !important;
+                border-top: 1px solid #eee;
+                margin-top: 0.5rem;
+                padding-top: 0.5rem;
+            }
+
+            /* Simplify cards */
+            .deportation-timeline-container .entry-card {
+                break-inside: avoid;
                 box-shadow: none;
-                border-radius: 0;
-                background: white;
+                border: 1px solid #ddd;
+                margin-bottom: 1rem;
+                padding: 1rem;
             }
 
-            .deportation-timeline-container .question-tracker,
-            .deportation-timeline-container .reflection-section {
-                border: none;
-                background: white;
-                padding: 0;
-                margin-bottom: 1.5rem;
+            .deportation-timeline-container .entry {
+                padding-left: 0;
+                padding-bottom: 1rem;
+            }
+            
+            .deportation-timeline-container .entry::before,
+            .deportation-timeline-container .entry::after {
+                display: none;
             }
 
-            .deportation-timeline-container .question-item textarea,
-            .deportation-timeline-container .notes-area textarea,
-            .deportation-timeline-container .reflection-textarea {
+            /* Better text areas */
+            .deportation-timeline-container .question-tracker textarea,
+            .deportation-timeline-container .notes-area textarea {
                 border: 1px solid #999;
                 resize: none;
-                min-height: 80px;
+                height: auto;
+                min-height: 100px;
                 color: black;
-                background: white;
                 font-family: serif;
-                width: 100%;
             }
-
-            .deportation-timeline-container .prompt {
-                border: none;
-                background: white;
-                border-bottom: 1px solid #ddd;
-                padding: 0.5rem 0;
-                page-break-inside: avoid;
+            
+            /* Page break controls */
+            .deportation-timeline-container .qft-opener,
+            .deportation-timeline-container .question-tracker,
+            .deportation-timeline-container .timeline-section h2 {
+                page-break-before: always;
             }
-
+            
             .deportation-timeline-container .question-item {
                 page-break-inside: avoid;
             }
@@ -913,7 +924,7 @@
             
             <div class="qfocus-statement">
                 <strong>Question Focus:</strong><br>
-                "In 2025, interior deportations more than quadrupled to their highest level in decades. ICE detention reached a record 73,000 people—84% higher than the previous year."
+                In 2025, interior deportations more than quadrupled to their highest level in decades. ICE detention reached a record 73,000 people—84% higher than the previous year. Although being undocumented in the US is a civil not a criminal infraction, immigrants with no criminal record continue to make up the largest group in US immigration detention.
             </div>
             
             <div class="qft-steps">
@@ -1015,23 +1026,23 @@
             <h2>Part 3: Reflection</h2>
             <div class="reflection-prompts">
                 <div class="prompt">
-                    <strong>1. Which of your questions were you able to answer using the timeline? What specific evidence did you find? Which questions require more research?
+                    <strong>1.</strong> Which of your questions were you able to answer using the timeline? What specific evidence did you find? Which questions require more research?
                     <textarea id="r1" class="reflection-textarea" placeholder="Write your response here..."></textarea>
                 </div>
                 <div class="prompt">
-                    <strong>2.Identify at least two examples from the timeline where U.S. policy <em>limited</em> immigration and two examples where it <em>allowed</em> or created pathways for immigration. What patterns do you notice?
+                    <strong>2.</strong> Identify at least two examples from the timeline where U.S. policy <em>limited</em> immigration and two examples where it <em>allowed</em> or created pathways for immigration. What patterns do you notice?
                     <textarea id="r2" class="reflection-textarea" placeholder="Write your response here..."></textarea>
                 </div>
                 <div class="prompt">
-                    <strong>3. Find one example where an immigration policy had effects that were different from what policymakers intended. What does this reveal about the complexity of immigration policy?
+                    <strong>3.</strong> Find one example where an immigration policy had effects that were different from what policymakers intended. What does this reveal about the complexity of immigration policy?
                     <textarea id="r3" class="reflection-textarea" placeholder="Write your response here..."></textarea>
                 </div>
                 <div class="prompt">
-                    <strong>4. Based on the historical evidence you've explored, what is one change you think should be made to current U.S. immigration policy? What historical facts support your position? What might critics of your position argue?
+                    <strong>4.</strong> Based on the historical evidence you've explored, what is one change you think should be made to current U.S. immigration policy? What historical facts support your position? What might critics of your position argue? What, if anything, is substantially different in the present day?
                     <textarea id="r4" class="reflection-textarea" placeholder="Write your response here..."></textarea>
                 </div>
                 <div class="prompt">
-                    <strong>5. What new questions emerged as you explored the timeline? If you were to research one question further, what primary sources would you need to consult?
+                    <strong>5.</strong> What new questions emerged as you explored the timeline? If you were to research one further, what kinds of sources would you need to consult — primary, secondary, data — and where would you look for them?
                     <textarea id="r5" class="reflection-textarea" placeholder="Write your response here..."></textarea>
                 </div>
             </div>
@@ -1622,11 +1633,14 @@
             });
         }
 
-        // Custom print function — outputs only student work in a clean popup
+        // Print: opens a clean popup containing only student input fields
         function printStudentWork() {
-            function val(id) { const el = document.getElementById(id); return el ? el.value.trim() : ''; }
-            function fmt(v, placeholder) {
-                if (!v) return `<span class="empty">${placeholder}</span>`;
+            function val(id) {
+                const el = document.getElementById(id);
+                return el ? el.value.trim() : '';
+            }
+            function fmt(v, empty) {
+                if (!v) return `<span class="empty">${empty}</span>`;
                 return v.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
             }
 
@@ -1652,7 +1666,6 @@ h2 { font-size: 10pt; font-weight: bold; text-transform: uppercase; letter-spaci
 .prompt-block { margin-bottom: 0.22in; page-break-inside: avoid; }
 .prompt-text { font-size: 10.5pt; margin-bottom: 5px; }
 .response { min-height: 0.6in; border-bottom: 1px solid #bbb; padding: 3px 0 5px; font-size: 11pt; }
-.response.empty { color: #bbb; font-style: italic; min-height: 0.9in; }
 @media print { body { padding: 0.45in 0.7in; } }
 </style>
 </head>
@@ -1668,39 +1681,39 @@ h2 { font-size: 10pt; font-weight: bold; text-transform: uppercase; letter-spaci
 <section>
 <h2>Part 1 — Priority Questions</h2>
 <div class="field-label">Priority Question #1</div>
-<div class="field-value">${fmt(val('q1'),'Not answered')}</div>
+<div class="field-value">${fmt(val('q1'), 'Not answered')}</div>
 <div class="field-label">Priority Question #2</div>
-<div class="field-value">${fmt(val('q2'),'Not answered')}</div>
+<div class="field-value">${fmt(val('q2'), 'Not answered')}</div>
 <div class="field-label">Priority Question #3</div>
-<div class="field-value">${fmt(val('q3'),'Not answered')}</div>
+<div class="field-value">${fmt(val('q3'), 'Not answered')}</div>
 </section>
 
 <section>
 <h2>Notes &amp; Evidence from the Timeline</h2>
-<div class="field-value tall">${fmt(val('notes'),'No notes recorded')}</div>
+<div class="field-value tall">${fmt(val('notes'), 'No notes recorded')}</div>
 </section>
 
 <section>
 <h2>Part 3 — Reflection</h2>
 <div class="prompt-block">
 <div class="prompt-text"><strong>1.</strong> Which of your questions were you able to answer using the timeline? What specific evidence did you find? Which questions require more research?</div>
-<div class="response ${val('r1') ? '' : 'empty'}">${fmt(val('r1'),'No response recorded')}</div>
+<div class="response">${fmt(val('r1'), '')}</div>
 </div>
 <div class="prompt-block">
-<div class="prompt-text"><strong>2.</strong> Identify at least two examples from the timeline where U.S. policy <em>limited</em> immigration and two where it <em>allowed</em> or created pathways. What patterns do you notice?</div>
-<div class="response ${val('r2') ? '' : 'empty'}">${fmt(val('r2'),'No response recorded')}</div>
+<div class="prompt-text"><strong>2.</strong> Identify at least two examples from the timeline where U.S. policy <em>limited</em> immigration and two examples where it <em>allowed</em> or created pathways for immigration. What patterns do you notice?</div>
+<div class="response">${fmt(val('r2'), '')}</div>
 </div>
 <div class="prompt-block">
-<div class="prompt-text"><strong>3.</strong> Find one example where an immigration policy had effects different from what policymakers intended. What does this reveal about the complexity of immigration policy?</div>
-<div class="response ${val('r3') ? '' : 'empty'}">${fmt(val('r3'),'No response recorded')}</div>
+<div class="prompt-text"><strong>3.</strong> Find one example where an immigration policy had effects that were different from what policymakers intended. What does this reveal about the complexity of immigration policy?</div>
+<div class="response">${fmt(val('r3'), '')}</div>
 </div>
 <div class="prompt-block">
-<div class="prompt-text"><strong>4.</strong> Based on the historical evidence you've explored, what is one change you think should be made to current U.S. immigration policy? What historical facts support your position? What might critics argue?</div>
-<div class="response ${val('r4') ? '' : 'empty'}">${fmt(val('r4'),'No response recorded')}</div>
+<div class="prompt-text"><strong>4.</strong> Based on the historical evidence you've explored, what is one change you think should be made to current U.S. immigration policy? What historical facts support your position? What might critics of your position argue? What, if anything, is substantially different in the present day?</div>
+<div class="response">${fmt(val('r4'), '')}</div>
 </div>
 <div class="prompt-block">
-<div class="prompt-text"><strong>5.</strong> What new questions emerged as you explored the timeline? If you were to research one further, what primary sources would you need to consult?</div>
-<div class="response ${val('r5') ? '' : 'empty'}">${fmt(val('r5'),'No response recorded')}</div>
+<div class="prompt-text"><strong>5.</strong> What new questions emerged as you explored the timeline? If you were to research one further, what kinds of sources would you need to consult — primary, secondary, data — and where would you look for them?</div>
+<div class="response">${fmt(val('r5'), '')}</div>
 </div>
 </section>
 </body>
